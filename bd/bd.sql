@@ -18,8 +18,8 @@ create table peniculas (
 );
 
 create index idx_peniculas_titulo on peniculas (titulo);
-create index idx_peniculas_ano on peliculas (ano);
-create index idx_peniculas_pais on peliculas (pais);
+create index idx_peniculas_ano on peniculas (ano);
+create index idx_peniculas_pais on peniculas (pais);
 
 drop table personas cascade;
 
@@ -75,7 +75,7 @@ create table generos_peniculas(
   id_generos bigint   constraint fk_generos_peniculas_generos
                       references generos (id)on update cascade
                       on delete cascade,
-  constraint pk_generos_peliculas primary key (id_peniculas, id_generos)
+  constraint pk_generos_peniculas primary key (id_peniculas, id_generos)
 );
 
 drop table paises_peniculas cascade;
