@@ -3,11 +3,14 @@
 /**
  * Controlador de fichas
  */
-class Fichas extends CI_Controller 
+class Peniculas extends CI_Controller 
 {
 	
-	function __construct($argument) 
-	{
-		
-	}
+
+  function index()
+  {
+    $this->load->model('Penicula');
+    $data['peniculas'] = $this->Penicula->cartelera();
+    $this->load->view("cartelera", $data);
+  }
 }
