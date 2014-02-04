@@ -1,4 +1,4 @@
-<?= form_open() ?>
+<?= form_open("/admin/personas/buscar/") ?>
   <?= form_input('criterio', $criterio) ?>
   <?= form_submit('buscar', 'buscar') ?>
 <?= form_close() ?>
