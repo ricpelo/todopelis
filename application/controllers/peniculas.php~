@@ -11,8 +11,16 @@ class Peniculas extends CI_Controller
   {
     $this->load->model('Penicula');
     $data['peniculas'] = $this->Penicula->cartelera();
-    $this->load->view("portada/cartelera", $data);
+    $this->load->view("cartelera", $data);
   }
+  
+  function estrenos_dvd()
+  {
+    $this->load->model('Pelicula');
+    $data['peniculas'] = $this->Penicula->estrenos_dvd();
+    $this->load->view("portada/estrenos_dvd", $data);
+  }
+
   
   function ficha_de($id_penicula = null)
   {
@@ -40,11 +48,8 @@ class Peniculas extends CI_Controller
       
       $this->load->view('comunes/error', $data);
     }
-  }
-  
-  function comentarios_de($id_penicula = null)
-  {
     
+     
   }
   
 }
