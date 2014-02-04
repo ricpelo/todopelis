@@ -47,8 +47,7 @@ class Penicula extends CI_Model
   function obtener_paises($id_penicula)
   {
     return $this->db->query("select * from paises_de_penicula where id_peniculas = ?", array($id_penicula));
-
+>>>>>>> a06cd4dcaba179b09a88674337cbbff4698ed6ac
   }
-
 }
 
