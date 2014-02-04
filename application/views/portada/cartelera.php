@@ -19,30 +19,16 @@
 	  <?php endforeach;?>
 	</div>
 
-	<h2>Proximos estrenos en cine</h2>
+	<h2>Estrenos en cine</h2>
 	<div>
-	  <?php foreach ($estrenosCine as $estrenosCine): ?>
+	  <?php foreach ($peniculas as $penicula): ?>
 	    <div class="penicula" style="float: left; border: 1px solid black;">
-	      <h3><?= $estrenosCine['titulo']?></h3>
+	      <h3><?= $penicula['titulo']?></h3>
 	      <?php
-	      $cartel = $estrenosCine['cartel']; 
+	      $cartel = $penicula['cartel']; 
 	      $imagen = array('src' => "$cartel", 'height' => '250', 'width' => '200'); ?>
 	      <?= img($imagen) ?>
-	      <p><?= $estrenosCine['estreno']?></p>
-	    </div>
-	  <?php endforeach;?>
-	</div>
-
-	<h2>Proximos estrenos en DVD</h2>
-	<div>
-	  <?php foreach ($dvds as $dvds): ?>
-	    <div class="penicula" style="float: left; border: 1px solid black;">
-	      <h3><?= $dvds['titulo']?></h3>
-	      <?php
-	      $cartel = $dvds['cartel']; 
-	      $imagen = array('src' => "$cartel", 'height' => '250', 'width' => '200'); ?>
-	      <?= img($imagen) ?>
-	      <p><?= $dvds['estreno']?></p>
+	      <p><?= $penicula['estreno']?></p>
 	    </div>
 	  <?php endforeach;?>
 	</div>
