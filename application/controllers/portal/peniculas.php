@@ -41,8 +41,11 @@ class Peniculas extends CI_Controller
       
       $this->load->view('comunes/error', $data);
     }
+  }
+  
+  function comentarios_de($id_penicula = null)
+  {
     
-     
   }
   
 }
