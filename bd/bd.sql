@@ -18,11 +18,6 @@ create table peniculas (
   dvd      date
 );
 
-insert into peniculas (titulo, cartel, estreno, dvd)
-values ('La Gran Estafa', 'uploads/carteles/gran_estafa.jpg', current_date - 1, current_date + 20);
-insert into peniculas (titulo, cartel, estreno, dvd)
-values ('Ataque de los Tomates asesinos', 'uploads/carteles/ataque_tomates.jpg', current_date + 10, null);
-
 create index idx_peniculas_titulo on peniculas (titulo);
 create index idx_peniculas_ano on peniculas (ano);
 
@@ -104,22 +99,26 @@ create table usuarios (
 
 /************************************VISTAS*****************************************/
 
+drop view generos_de_penicula;
 create view generos_de_penicula as
   select * from generos g join generos_peniculas p 
            on g.id = p.id_generos;
 
+drop view paises_de_penicula;
 create view paises_de_penicula as
   select * from paises p join paises_peniculas pp 
            on p.id = pp.id_paises;
 
-create view actores
-  select * from personas per join participan par
+drop view actores;
+create view actores as
+ select per.nombre as nombre,id_personas,id_peniculas from personas per join participan par
            on per.id = par.id_personas join cargos car
            on par.id_cargos = car.id
            where car.nombre = 'actor';
 
-create view directores
-  select * from personas per join participan par
+drop view directores;
+create view directores as
+ select per.nombre as nombre,id_personas,id_peniculas from personas per join participan par
            on per.id = par.id_personas join cargos car
            on par.id_cargos = car.id
            where car.nombre = 'director';
@@ -140,22 +139,22 @@ INSERT INTO paises (id,nombre,bandera) VALUES (2,'Freinch','freinch.gif');
 INSERT INTO paises (id,nombre,bandera) VALUES (3,'Jinlang','jinlang.gif');
 INSERT INTO paises (id,nombre,bandera) VALUES (4,'Iuesei','iuesei.gif');
 
-INSERT INTO personas (id,nombre) VALUES (1,"George Lucas");
-INSERT INTO personas (id,nombre) VALUES (2,"Liam Neeson");
-INSERT INTO personas (id,nombre) VALUES (3,"Ewan McGregor");
-INSERT INTO personas (id,nombre) VALUES (4,"Natalie Portman");
-INSERT INTO personas (id,nombre) VALUES (5,"Charles Chaplin");
+INSERT INTO personas (id,nombre) VALUES (1,'George Lucas');
+INSERT INTO personas (id,nombre) VALUES (2,'Liam Neeson');
+INSERT INTO personas (id,nombre) VALUES (3,'Ewan McGregor');
+INSERT INTO personas (id,nombre) VALUES (4,'Natalie Portman');
+INSERT INTO personas (id,nombre) VALUES (5,'Charles Chaplin');
 
 INSERT INTO peniculas (id, titulo, ano, duracion, cartel, estreno, alta, sinopsis)
-  VALUES(1,'Tiempos modernos',1936, '89 mins.','uploads/carteles/modernos.jpg',1936,current_date,
+  VALUES(1,'Tiempos modernos',1936, 89,'uploads/carteles/modernos.jpg',current_date-70,current_date,
          'Extenuado por el frenético ritmo de la cadena de montaje, un obrero metalúrgico acaba perdiendo la razón.');
 INSERT INTO peniculas (id, titulo, ano, duracion, cartel, estreno, alta, sinopsis)
-  VALUES(2,'La guerra de las galaxias. Episodio I: La amenaza fantasma',1999,'131 mins.','uploads/carteles/galaxias.jpg',1999,current_date
-         'La infancia de Darth Vader, el pasado de Obi-Wan Kenobi y el resurgimiento de los Sith y los caballeros Jedi dominados por el Lado Oscuro');
+  VALUES(2,'La guerra de las galaxias. Episodio I: La amenaza fantasma',1999,131,'uploads/carteles/galaxias.jpg',current_date-15,current_date,
+         'La infancia de Darth Vader, el pasado de Obi-Wan Kenobi');
 
 insert into peniculas (id, titulo, cartel, estreno, dvd)
   values (3,'La Gran Estafa', 'uploads/carteles/gran_estafa.jpg', current_date - 1, current_date + 20);
-insert into peniculas (titulo, cartel, estreno, dvd)
+insert into peniculas (id, titulo, cartel, estreno, dvd)
   values (4,'Ataque de los Tomates asesinos', 'uploads/carteles/ataque_tomates.jpg', current_date + 10, null);
 
 INSERT INTO participan (id,id_peniculas,id_personas,id_cargos)
@@ -167,9 +166,9 @@ INSERT INTO participan (id,id_peniculas,id_personas,id_cargos)
 INSERT INTO participan (id,id_peniculas,id_personas,id_cargos)
        VALUES (4,2,2,2);
 INSERT INTO participan (id,id_peniculas,id_personas,id_cargos)
-       VALUES (4,2,3,2);
+       VALUES (5,2,3,2);
 INSERT INTO participan (id,id_peniculas,id_personas,id_cargos)
-       VALUES (4,2,4,2);
+       VALUES (6,2,4,2);
 
 INSERT INTO generos_peniculas(id_peniculas, id_generos)
        VALUES(1,2);
