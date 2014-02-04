@@ -147,11 +147,16 @@ INSERT INTO personas (id,nombre) VALUES (4,"Natalie Portman");
 INSERT INTO personas (id,nombre) VALUES (5,"Charles Chaplin");
 
 INSERT INTO peniculas (id, titulo, ano, duracion, cartel, estreno, alta, sinopsis)
-  VALUES(1,'Tiempos modernos',1936, '89 mins.','modernos.jpg',1936,current_date,
+  VALUES(1,'Tiempos modernos',1936, '89 mins.','uploads/carteles/modernos.jpg',1936,current_date,
          'Extenuado por el frenético ritmo de la cadena de montaje, un obrero metalúrgico acaba perdiendo la razón.');
 INSERT INTO peniculas (id, titulo, ano, duracion, cartel, estreno, alta, sinopsis)
-  VALUES(2,'La guerra de las galaxias. Episodio I: La amenaza fantasma',1999,'131 mins.','galaxias.jpg',1999,current_date
+  VALUES(2,'La guerra de las galaxias. Episodio I: La amenaza fantasma',1999,'131 mins.','uploads/carteles/galaxias.jpg',1999,current_date
          'La infancia de Darth Vader, el pasado de Obi-Wan Kenobi y el resurgimiento de los Sith y los caballeros Jedi dominados por el Lado Oscuro');
+
+insert into peniculas (id, titulo, cartel, estreno, dvd)
+  values (3,'La Gran Estafa', 'uploads/carteles/gran_estafa.jpg', current_date - 1, current_date + 20);
+insert into peniculas (titulo, cartel, estreno, dvd)
+  values (4,'Ataque de los Tomates asesinos', 'uploads/carteles/ataque_tomates.jpg', current_date + 10, null);
 
 INSERT INTO participan (id,id_peniculas,id_personas,id_cargos)
        VALUES (1,1,5,1);
