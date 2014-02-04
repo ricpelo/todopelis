@@ -4,10 +4,6 @@ class Penicula extends CI_Model
 {
   function cartelera()
   {
-<<<<<<< HEAD
-    
-=======
->>>>>>> 47e574a565b5eb72b3d52b22bef1f943773a855a
     $res = $this->db->query("select id, titulo, cartel, estreno 
                                from peniculas 
                               where estreno > (current_date - 30)
@@ -15,27 +11,6 @@ class Penicula extends CI_Model
                                           ");
     return $res->result_array();
   }
-<<<<<<< HEAD
-
-  function todas()
-  {
-    $res = $this->db->query("select * 
-                             from peniculas
-                             order by alta desc");
-
-    return $res->result_array();
-  }
-
-  function buscar($nombre)
-  {
-    $res = $this->db->query("select * 
-                             from peniculas
-                             where titulo like '%' || ? || '%'
-                             order by alta desc",array($nombre));
-
-    return $res->result_array();
-  }
-=======
   
   function estrenos_dvd()
   { 
@@ -72,9 +47,7 @@ class Penicula extends CI_Model
   function obtener_paises($id_penicula)
   {
     return $this->db->query("select * from paises_de_penicula where id_peniculas = ?", array($id_penicula));
-
+>>>>>>> a06cd4dcaba179b09a88674337cbbff4698ed6ac
   }
-
->>>>>>> 47e574a565b5eb72b3d52b22bef1f943773a855a
 }
 
