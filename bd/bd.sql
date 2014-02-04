@@ -19,7 +19,6 @@ create table peniculas (
 
 create index idx_peniculas_titulo on peniculas (titulo);
 create index idx_peniculas_ano on peniculas (ano);
-create index idx_peniculas_pais on peniculas (pais);
 
 drop table personas cascade;
 
