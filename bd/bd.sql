@@ -14,12 +14,17 @@ create table peniculas (
   sinopsis text,
   cartel   text,
   estreno  date,
-  alta     date
+  alta     date,
+  dvd      date
 );
+
+insert into peniculas (titulo, cartel, estreno, dvd)
+values ('La Gran Estafa', 'uploads/carteles/gran_estafa.jpg', current_date - 1, current_date + 20);
+insert into peniculas (titulo, cartel, estreno, dvd)
+values ('Ataque de los Tomates asesinos', 'uploads/carteles/ataque_tomates.jpg', current_date + 10, null);
 
 create index idx_peniculas_titulo on peniculas (titulo);
 create index idx_peniculas_ano on peniculas (ano);
-create index idx_peniculas_pais on peniculas (pais);
 
 drop table personas cascade;
 
