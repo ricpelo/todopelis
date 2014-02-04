@@ -11,8 +11,16 @@ class Peniculas extends CI_Controller
   {
     $this->load->model('Penicula');
     $data['peniculas'] = $this->Penicula->cartelera();
-    $this->load->view("portada/cartelera", $data);
+    $this->load->view("/portada/cartelera", $data);
   }
+  
+  function estrenos_dvd()
+  {
+    $this->load->model('Penicula');
+    $data['peniculas'] = $this->Penicula->estrenos_dvd();
+    $this->load->view("portada/estrenos_dvd", $data);
+  }
+
   
   function ficha_de($id_penicula = null)
   {
