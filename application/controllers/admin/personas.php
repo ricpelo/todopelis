@@ -2,16 +2,21 @@
 class Personas extends CI_Controller {
   public function index()
   {
+    $this->load->model('Persona');
+    
     $criterio = trim($this->input->post('criterio'));
 
-    $res = $this->Persona->todos();
-
-    if ($criterio == FALSE) $criterio = '';
-
-    $opciones = array('nombre' => 'Nombre');
+    if ($criterio == FALSE){
+      $criterio = '';
+      $res = $this->Persona->todos();
+    }
+    else{
+      $res = $this->Persona->por_nombre($criterio);
+    }
     
     $data['filas'] = $res;
     $data['criterio'] = $criterio;
     
-    $this->load->view('admin/personas/index', $data);  }
+    $this->load->view('admin/personas/index', $data);  
+  }
 }

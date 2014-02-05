@@ -6,7 +6,7 @@ class Persona extends CI_Model
   {
     $res = $this->db->query("select * 
                                from personas 
-                              where ?", $valores);
+                              where $where", $valores);
     return $res->result_array();
   }
 
