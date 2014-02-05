@@ -9,13 +9,19 @@ class Peniculas extends CI_Controller
 
   function index()
   {
-    $this->load->model('Penicula');
     $data['peniculas'] = $this->Penicula->cartelera();
-    $data['estrenosCine'] = $this->Penicula->cine();
-    $data['dvds'] = $this->Penicula->dvd();
-    $this->load->view("cartelera", $data);
+<<<<<<< HEAD
+    $this->load->view("portada/cartelera", $data);
+=======
+    $this->load->view("/portada/cartelera", $data);
   }
-
+  
+  function estrenos_dvd()
+  {
+    $data['peniculas'] = $this->Penicula->estrenos_dvd();
+    $this->load->view("portada/estrenos_dvd", $data);
+>>>>>>> c8a91007bc315be8fed2b4500733a34ad6adf0df
+  }
   
   function ficha_de($id_penicula = null)
   {
@@ -43,8 +49,11 @@ class Peniculas extends CI_Controller
       
       $this->load->view('comunes/error', $data);
     }
+  }
+  
+  function comentarios_de($id_penicula = null)
+  {
     
-     
   }
   
 }
