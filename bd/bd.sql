@@ -155,7 +155,7 @@ INSERT INTO peniculas (id, titulo, ano, duracion, cartel, estreno, alta, sinopsi
 insert into peniculas (id, titulo, cartel, estreno, dvd)
   values (3,'La Gran Estafa', 'uploads/carteles/gran_estafa.jpg', current_date - 1, current_date + 20);
 insert into peniculas (id, titulo, cartel, estreno, dvd)
-  values (4,'Ataque de los Tomates asesinos', 'uploads/carteles/ataque_tomates.jpg', current_date + 10, null);
+  values (4,'Ataque de los Tomates asesinos', 'uploads/carteles/ataque_tomates.jpg', current_date + 10, current_date - 15);
 
 INSERT INTO participan (id,id_peniculas,id_personas,id_cargos)
        VALUES (1,1,5,1);
