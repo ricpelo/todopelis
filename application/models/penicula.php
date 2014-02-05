@@ -4,6 +4,7 @@ class Penicula extends CI_Model
 {
   function cartelera()
   {
+    $this->load->database();
 
     $res = $this->db->query("select id, titulo, cartel, estreno 
                                from peniculas 
@@ -12,7 +13,6 @@ class Penicula extends CI_Model
                                           ");
     return $res->result_array();
   }
-
 
   function todas()
   {
@@ -33,6 +33,7 @@ class Penicula extends CI_Model
     return $res->result_array();
   }
 
+
   function alta($data)
   {
     $res = $this->db->query("insert into peniculas (titulo, ano, duracion,sinopsis,cartel,estreno,dvd)
@@ -44,15 +45,13 @@ class Penicula extends CI_Model
   
   function estrenos_dvd()
   { 
-    $this->load->database();
     $res = $this->db->query("select id, titulo, cartel,dvd
                                from peniculas 
-                              where dvd > (current_date - 30)
-                                and dvd <= current_date;
+                              where estreno < (current_date + 30)
+                                and estreno > current_date;
                                           ");
     return $res->result_array();
   }
-
   function obtener_datos($id_penicula)
   {
     $res = $this->db->query("select * from peniculas
@@ -89,7 +88,4 @@ class Penicula extends CI_Model
     return $res->result_array();
 
   }
-
-
 }
-

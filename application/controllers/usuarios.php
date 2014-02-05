@@ -51,7 +51,7 @@ class Usuarios extends CI_Controller
     {
       $id = $this->Usuario->obtener_id($usuario);
       $this->session->set_userdata('id_login', $id);
-      redirect('tuits/index');
+      redirect('usuarios/index');
     }    
   }
   

@@ -88,15 +88,31 @@ create table paises_peniculas(
                       on delete cascade,
   constraint pk_paises_peniculas primary key (id_paises, id_peniculas)
 );
-drop table usuarios cascade;
+          drop table usuarios cascade;
 
 create table usuarios (
   id       bigserial   constraint pk_usuarios primary key,
   usuario  varchar(15) not null constraint uq_usuarios_usuario unique,
-  password char(32)    not null
+  password char(32)    not null,
+  email    varchar(75) not null constraint uq_usuarios_email unique
 );
 
+create index idx_usuarios_usuario_password on usuarios (usuario, password);
 
+
+drop table ci_sessions cascade;
+
+CREATE TABLE ci_sessions (
+  session_id varchar(40) DEFAULT '0' NOT NULL,
+  ip_address varchar(45) DEFAULT '0' NOT NULL,
+  user_agent varchar(120) NOT NULL,
+  last_activity numeric(10) DEFAULT 0 NOT NULL,
+  user_data text NOT NULL,
+  PRIMARY KEY (session_id)
+);
+
+create index last_activity_idx on ci_sessions (last_activity);
+  
 /************************************VISTAS*****************************************/
 
 drop view generos_de_penicula;
@@ -125,6 +141,8 @@ create view directores as
 
 /************************************INSERTS*****************************************/
 
+insert into usuarios (usuario, password, email) values ('pepe', md5('pepe'), 'pepe@pepe.com');
+insert into usuarios (usuario, password, email) values ('maria', md5('juan'), 'juan@juan.com');
 
 INSERT INTO cargos (nombre) VALUES ('director');
 INSERT INTO cargos (nombre) VALUES ('actor');
@@ -152,6 +170,7 @@ INSERT INTO peniculas (titulo, ano, duracion, cartel, estreno, alta, sinopsis)
   VALUES('La guerra de las galaxias. Episodio I: La amenaza fantasma',1999,131,'uploads/carteles/galaxias.jpg',current_date-15,current_date,
          'La infancia de Darth Vader, el pasado de Obi-Wan Kenobi');
 
+
 insert into peniculas (titulo, cartel, estreno, dvd)
   values ('La Gran Estafa', 'uploads/carteles/gran_estafa.jpg', current_date - 1, current_date + 20);
 insert into peniculas (titulo, cartel, estreno, dvd)
@@ -169,6 +188,7 @@ INSERT INTO participan (id_peniculas,id_personas,id_cargos)
        VALUES (2,3,2);
 INSERT INTO participan (id_peniculas,id_personas,id_cargos)
        VALUES (2,4,2);
+
 
 INSERT INTO generos_peniculas(id_peniculas, id_generos)
        VALUES(1,2);
