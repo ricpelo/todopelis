@@ -38,7 +38,7 @@ class Peniculas extends CI_Controller
       $data['generos'] = $generos;
       $data['paises'] = $paises;
       
-      $this->load->view('peniculas/ficha', $data, TRUE);
+      $this->load->view('peniculas/ficha', $data);
     }
     catch (Exception $e)
     {
