@@ -14,8 +14,7 @@ create table peniculas (
   sinopsis text,
   cartel   text,
   estreno  date,
-  alta     date,
-  dvd      date
+  alta     date
 );
 
 create index idx_peniculas_titulo on peniculas (titulo);
@@ -94,6 +93,7 @@ create table usuarios (
   id       bigserial   constraint pk_usuarios primary key,
   usuario  varchar(15) not null constraint uq_usuarios_usuario unique,
   password char(32)    not null
+
 );
 
 
