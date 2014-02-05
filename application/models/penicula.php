@@ -33,6 +33,14 @@ class Penicula extends CI_Model
     return $res->result_array();
   }
 
+  function alta($data)
+  {
+    $res = $this->db->query("insert into peniculas (titulo, ano, duracion,sinopsis,cartel,estreno,dvd)
+                             values ( ?, ?, ?, ?, ?, ?, ?)",
+                             array($data['titulo'], $data['ano'],$data['duracion'],$data['sinopsis'],
+                              $data['cartel'],$data['estreno'],$data['dvd']));
+  }
+
   
   function estrenos_dvd()
   { 
