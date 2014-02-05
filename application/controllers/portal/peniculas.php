@@ -5,9 +5,7 @@
  */
 class Peniculas extends CI_Controller 
 {
-	
-
-  function index()
+  function cartelera()
   {
     $data['peniculas'] = $this->Penicula->cartelera();
 <<<<<<< HEAD

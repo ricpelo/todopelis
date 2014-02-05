@@ -14,7 +14,8 @@ create table peniculas (
   sinopsis text,
   cartel   text,
   estreno  date,
-  alta     date
+  alta     date,
+  dvd      date
 );
 
 create index idx_peniculas_titulo on peniculas (titulo);
@@ -95,8 +96,19 @@ create table usuarios (
   password char(32)    not null
 
 );
+drop table ci_sessions cascade;
 
+CREATE TABLE ci_sessions (
+  session_id varchar(40) DEFAULT '0' NOT NULL,
+  ip_address varchar(45) DEFAULT '0' NOT NULL,
+  user_agent varchar(120) NOT NULL,
+  last_activity numeric(10) DEFAULT 0 NOT NULL,
+  user_data text NOT NULL,
+  PRIMARY KEY (session_id)
+);
 
+create index last_activity_idx on ci_sessions (last_activity);
+  
 /************************************VISTAS*****************************************/
 
 drop view generos_de_penicula;
@@ -124,6 +136,7 @@ create view directores as
            where car.nombre = 'director';
 
 /************************************INSERTS*****************************************/
+insert into usuarios (usuario,password) values ('jose','pepe');
 
 
 INSERT INTO cargos (id,nombre) VALUES (1,'director');
@@ -155,7 +168,7 @@ INSERT INTO peniculas (id, titulo, ano, duracion, cartel, estreno, alta, sinopsi
 insert into peniculas (id, titulo, cartel, estreno, dvd)
   values (3,'La Gran Estafa', 'uploads/carteles/gran_estafa.jpg', current_date - 1, current_date + 20);
 insert into peniculas (id, titulo, cartel, estreno, dvd)
-  values (4,'Ataque de los Tomates asesinos', 'uploads/carteles/ataque_tomates.jpg', current_date + 10, null);
+  values (4,'Ataque de los Tomates asesinos', 'uploads/carteles/ataque_tomates.jpg', current_date + 10, current_date - 15);
 
 INSERT INTO participan (id,id_peniculas,id_personas,id_cargos)
        VALUES (1,1,5,1);
