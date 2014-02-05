@@ -52,7 +52,8 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database');
+
+$autoload['libraries'] = array('database', 'form_validation');
 
 
 /*
@@ -64,7 +65,7 @@ $autoload['libraries'] = array('database');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('html', 'url');
+$autoload['helper'] = array('html','url', 'form');
 
 
 /*
@@ -109,7 +110,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array();
+$autoload['model'] = array('Penicula');
 
 
 /* End of file autoload.php */

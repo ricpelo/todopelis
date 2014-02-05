@@ -2,6 +2,6 @@
 class Usuarios extends CI_Controller {
   public function index()
   {
-    $this->load->view('admin/index');
+    $this->load->view('usuarios/be_index');
   }
 }
