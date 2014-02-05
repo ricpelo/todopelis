@@ -87,14 +87,18 @@ create table paises_peniculas(
                       on delete cascade,
   constraint pk_paises_peniculas primary key (id_paises, id_peniculas)
 );
-drop table usuarios cascade;
+          drop table usuarios cascade;
 
 create table usuarios (
   id       bigserial   constraint pk_usuarios primary key,
   usuario  varchar(15) not null constraint uq_usuarios_usuario unique,
-  password char(32)    not null
-
+  password char(32)    not null,
+  email    varchar(75) not null constraint uq_usuarios_email unique
 );
+
+create index idx_usuarios_usuario_password on usuarios (usuario, password);
+
+
 drop table ci_sessions cascade;
 
 CREATE TABLE ci_sessions (
@@ -135,8 +139,9 @@ create view directores as
            where car.nombre = 'director';
 
 /************************************INSERTS*****************************************/
-insert into usuarios (usuario,password) values ('jose','pepe');
 
+insert into usuarios (usuario, password, email) values ('pepe', md5('pepe'), 'pepe@pepe.com');
+insert into usuarios (usuario, password, email) values ('maria', md5('juan'), 'juan@juan.com');
 
 INSERT INTO cargos (id,nombre) VALUES (1,'director');
 INSERT INTO cargos (id,nombre) VALUES (2,'actor');
