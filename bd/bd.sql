@@ -94,6 +94,7 @@ create table usuarios (
   id       bigserial   constraint pk_usuarios primary key,
   usuario  varchar(15) not null constraint uq_usuarios_usuario unique,
   password char(32)    not null
+
 );
 
 

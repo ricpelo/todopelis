@@ -5,7 +5,9 @@
  */
 class Peniculas extends CI_Controller 
 {
-  function cartelera()
+	
+
+  function index()
   {
     $data['peniculas'] = $this->Penicula->cartelera();
 <<<<<<< HEAD
@@ -39,7 +41,7 @@ class Peniculas extends CI_Controller
       $data['generos'] = $generos;
       $data['paises'] = $paises;
       
-      $this->load->view('peniculas/ficha', $data);
+      $this->load->view('peniculas/ficha', $data, TRUE);
     }
     catch (Exception $e)
     {
