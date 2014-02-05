@@ -35,8 +35,7 @@ class Penicula extends CI_Model
   
   function estrenos_dvd()
   { 
-    $this->load->database();
-    $res = $this->db->query("select id, titulo, cartel, estreno 
+    $res = $this->db->query("select id, titulo, cartel,dvd
                                from peniculas 
                               where estreno < (current_date + 30)
                                 and estreno > current_date;
