@@ -14,7 +14,7 @@ create table peniculas (
   sinopsis text,
   cartel   text,
   estreno  date,
-  alta     date,
+  alta     date   default(CURRENT_DATE),
   dvd      date
 );
 
@@ -35,8 +35,7 @@ create table cargos (
 );
 
 drop table participan cascade;
-create table participan (
-  id           bigserial constraint pk_participan primary key,
+create table participan ( 
   id_peniculas bigint    not null constraint fk_participan_peniculas
                          references peniculas (id) on update cascade 
                          on delete cascade,
@@ -45,14 +44,15 @@ create table participan (
                          on delete cascade,
   id_cargos    bigint    not null constraint fk_participan_cargos
                          references cargos (id) on update cascade 
-                         on delete no action
+                         on delete no action,
+  constraint pk_participan primary key (id_peniculas, id_personas, id_cargos)
 );
 
 drop table generos cascade;
 create table generos (
   id     bigserial   constraint pk_generos primary key,
   nombre varchar(50) not null constraint uq_generos_nombre_unico unique
-  );
+);
 
 
 drop table comentarios cascade;
@@ -79,7 +79,7 @@ create table generos_peniculas(
 );
 
 drop table paises_peniculas cascade;
-create table paises_peniculas(
+create table paises_peniculas (
   id_paises      bigint constraint fk_paises_peniculas_paises
                       references paises (id) on update cascade
                       on delete no action,
@@ -88,14 +88,18 @@ create table paises_peniculas(
                       on delete cascade,
   constraint pk_paises_peniculas primary key (id_paises, id_peniculas)
 );
+
 drop table usuarios cascade;
 
 create table usuarios (
   id       bigserial   constraint pk_usuarios primary key,
   usuario  varchar(15) not null constraint uq_usuarios_usuario unique,
-  password char(32)    not null
-
+  password char(32)    not null,
+  email    varchar(75) not null constraint uq_usuarios_email unique
 );
+
+create index idx_usuarios_usuario_password on usuarios (usuario, password);
+
 drop table ci_sessions cascade;
 
 CREATE TABLE ci_sessions (
@@ -136,52 +140,55 @@ create view directores as
            where car.nombre = 'director';
 
 /************************************INSERTS*****************************************/
-insert into usuarios (usuario,password) values ('jose','pepe');
 
+insert into usuarios (usuario, password, email) values ('pepe', md5('pepe'), 'pepe@pepe.com');
+insert into usuarios (usuario, password, email) values ('maria', md5('juan'), 'juan@juan.com');
 
-INSERT INTO cargos (id,nombre) VALUES (1,'director');
-INSERT INTO cargos (id,nombre) VALUES (2,'actor');
+INSERT INTO cargos (nombre) VALUES ('director');
+INSERT INTO cargos (nombre) VALUES ('actor');
 
-INSERT INTO generos (id,nombre) VALUES (1,'Suspense');
-INSERT INTO generos (id,nombre) VALUES (2,'Comedia');
-INSERT INTO generos (id,nombre) VALUES (3,'Ciencia Ficción');
-INSERT INTO generos (id,nombre) VALUES (4,'Drama');
+INSERT INTO generos (nombre) VALUES ('Suspense');
+INSERT INTO generos (nombre) VALUES ('Comedia');
+INSERT INTO generos (nombre) VALUES ('Ciencia Ficción');
+INSERT INTO generos (nombre) VALUES ('Drama');
 
-INSERT INTO paises (id,nombre,bandera) VALUES (1,'Espein','espein.gif');
-INSERT INTO paises (id,nombre,bandera) VALUES (2,'Freinch','freinch.gif');
-INSERT INTO paises (id,nombre,bandera) VALUES (3,'Jinlang','jinlang.gif');
-INSERT INTO paises (id,nombre,bandera) VALUES (4,'Iuesei','iuesei.gif');
+INSERT INTO paises (nombre,bandera) VALUES ('Espein','espein.gif');
+INSERT INTO paises (nombre,bandera) VALUES ('Freinch','freinch.gif');
+INSERT INTO paises (nombre,bandera) VALUES ('Jinlang','jinlang.gif');
+INSERT INTO paises (nombre,bandera) VALUES ('Iuesei','iuesei.gif');
 
-INSERT INTO personas (id,nombre) VALUES (1,'George Lucas');
-INSERT INTO personas (id,nombre) VALUES (2,'Liam Neeson');
-INSERT INTO personas (id,nombre) VALUES (3,'Ewan McGregor');
-INSERT INTO personas (id,nombre) VALUES (4,'Natalie Portman');
-INSERT INTO personas (id,nombre) VALUES (5,'Charles Chaplin');
+INSERT INTO personas (nombre) VALUES ('George Lucas');
+INSERT INTO personas (nombre) VALUES ('Liam Neeson');
+INSERT INTO personas (nombre) VALUES ('Ewan McGregor');
+INSERT INTO personas (nombre) VALUES ('Natalie Portman');
+INSERT INTO personas (nombre) VALUES ('Charles Chaplin');
 
-INSERT INTO peniculas (id, titulo, ano, duracion, cartel, estreno, alta, sinopsis)
-  VALUES(1,'Tiempos modernos',1936, 89,'uploads/carteles/modernos.jpg',current_date-70,current_date,
+INSERT INTO peniculas (titulo, ano, duracion, cartel, estreno, alta, sinopsis)
+  VALUES('Tiempos modernos',1936, 89,'uploads/carteles/modernos.jpg',current_date-70,current_date,
          'Extenuado por el frenético ritmo de la cadena de montaje, un obrero metalúrgico acaba perdiendo la razón.');
-INSERT INTO peniculas (id, titulo, ano, duracion, cartel, estreno, alta, sinopsis)
-  VALUES(2,'La guerra de las galaxias. Episodio I: La amenaza fantasma',1999,131,'uploads/carteles/galaxias.jpg',current_date-15,current_date,
+INSERT INTO peniculas (titulo, ano, duracion, cartel, estreno, alta, sinopsis)
+  VALUES('La guerra de las galaxias. Episodio I: La amenaza fantasma',1999,131,'uploads/carteles/galaxias.jpg',current_date-15,current_date,
          'La infancia de Darth Vader, el pasado de Obi-Wan Kenobi');
 
-insert into peniculas (id, titulo, cartel, estreno, dvd)
-  values (3,'La Gran Estafa', 'uploads/carteles/gran_estafa.jpg', current_date - 1, current_date + 20);
-insert into peniculas (id, titulo, cartel, estreno, dvd)
-  values (4,'Ataque de los Tomates asesinos', 'uploads/carteles/ataque_tomates.jpg', current_date + 10, current_date - 15);
 
-INSERT INTO participan (id,id_peniculas,id_personas,id_cargos)
-       VALUES (1,1,5,1);
-INSERT INTO participan (id,id_peniculas,id_personas,id_cargos)
-       VALUES (2,1,5,2);
-INSERT INTO participan (id,id_peniculas,id_personas,id_cargos)
-       VALUES (3,2,1,1);
-INSERT INTO participan (id,id_peniculas,id_personas,id_cargos)
-       VALUES (4,2,2,2);
-INSERT INTO participan (id,id_peniculas,id_personas,id_cargos)
-       VALUES (5,2,3,2);
-INSERT INTO participan (id,id_peniculas,id_personas,id_cargos)
-       VALUES (6,2,4,2);
+insert into peniculas (titulo, cartel, estreno, dvd)
+  values ('La Gran Estafa', 'uploads/carteles/gran_estafa.jpg', current_date - 1, current_date + 20);
+insert into peniculas (titulo, cartel, estreno, dvd)
+  values ('Ataque de los Tomates asesinos', 'uploads/carteles/ataque_tomates.jpg', current_date + 10, null);
+
+INSERT INTO participan (id_peniculas,id_personas,id_cargos)
+       VALUES (1,5,1);
+INSERT INTO participan (id_peniculas,id_personas,id_cargos)
+       VALUES (1,5,2);
+INSERT INTO participan (id_peniculas,id_personas,id_cargos)
+       VALUES (2,1,1);
+INSERT INTO participan (id_peniculas,id_personas,id_cargos)
+       VALUES (2,2,2);
+INSERT INTO participan (id_peniculas,id_personas,id_cargos)
+       VALUES (2,3,2);
+INSERT INTO participan (id_peniculas,id_personas,id_cargos)
+       VALUES (2,4,2);
+
 
 INSERT INTO generos_peniculas(id_peniculas, id_generos)
        VALUES(1,2);

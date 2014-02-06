@@ -14,8 +14,7 @@
   <tbody>
     <?php foreach ($filas as $fila): ?>
       <tr>
-        <td><?= anchor("/tuits/tuits_de/{$fila['usuario']}",
-                       $fila['usuario']) ?></td>
+        <td><?= $fila['usuario'] ?></td>
         <td><?= $fila['email'] ?></td>
         <td><?= anchor("/usuarios/editar/{$fila['id']}", 'Editar') ?></td>
         <td><?= anchor("/usuarios/borrar/{$fila['id']}", 'Borrar') ?></td>

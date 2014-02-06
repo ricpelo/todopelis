@@ -5,64 +5,92 @@ class Peniculas extends CI_Controller
   
   function index()
   {
-   
     $nombre = trim($this->input->post('nombre'));
 
-    if($nombre == FALSE || $nombre == '')
+    if ($nombre == FALSE || $nombre == '')
+    {
       $res = $this->Penicula->todas();
+    }
     else
-      $res = $this->Penicula->buscar($nombre);  
+    {
+      $res = $this->Penicula->buscar($nombre);
+    }
     
     $data['filas'] = $res;
     $data['nombre'] = $nombre;
     
-    
-    $this->load->view('peniculas/index', $data);
+    $this->load->view('admin/peniculas/index', $data);
   }
 
-  
-  /*
   function alta()
   {
     $reglas = array(
       array(
-        'field' => 'nombre',
-        'label' => 'Nombre',
-        'rules' => 'trim|required|max_length[15]|is_unique[usuarios.usuario]|callback__comprobar_minusculas'
+        'field' => 'titulo',
+        'label' => 'Titulo',
+        'rules' => 'trim|required|max_length[100]'
       ),
       array(
-        'field' => 'email',
-        'label' => 'Correo',
-        'rules' => 'trim|required|max_length[75]|valid_email'
+        'field' => 'ano',
+        'label' => 'Año',
+        'rules' => 'trim|numeric|max_length[4]'
+      ),
+       array(
+        'field' => 'duracion',
+        'label' => 'Duracion',
+        'rules' => 'trim|numeric|max_length[3]'
+      ),
+        array(
+        'field' => 'sinopsis',
+        'label' => 'Sinopsis',
+        'rules' => 'trim'
       ),
       array(
-        'field' => 'password',
-        'label' => 'Contraseña',
-        'rules' => 'trim|required'
+        'field' => 'cartel',
+        'label' => 'Cartel',
+        'rules' => 'trim'
       ),
+       array(
+        'field' => 'estreno',
+        'label' => 'Estreno',
+        'rules' => 'trim'
+      ),
+       
       array(
-        'field' => 'password_confirm',
-        'label' => 'Confirmar contraseña',
-        'rules' => 'trim|required|matches[password]'
+        'field' => 'dvd',
+        'label' => 'DVD',
+        'rules' => 'trim'
       )      
     );
     
+
     $this->form_validation->set_rules($reglas);
     
     if ($this->form_validation->run() == FALSE)
     {
-      $this->template->load('comunes/plantilla', 'usuarios/alta');
+      $this->load->view('admin/peniculas/alta');
+      $estrenoCompleta = $this->input->post('estreno');
+
+      $cortadas = explode('/',$estrenoCompleta);
+
+      var_dump($cortadas); // NOS QUEDAMOS AQUI !!!
     }
     else
     {
-      $nombre = $this->input->post('nombre');
-      $email = $this->input->post('email');
-      $password = $this->input->post('password');
-      $this->Usuario->alta($nombre, $password, $email);
-      redirect('usuarios/index');
-    }
-  }*/
+      $data['titulo'] = $this->input->post('titulo');
+      $data['ano'] = $this->input->post('ano');
+      $data['duracion'] = $this->input->post('duracion');
+      $data['sinopsis'] = $this->input->post('sinopsis');
+      $data['cartel'] = $this->input->post('cartel');
+      $data['estreno'] = $this->input->post('estreno');
+      $data['alta'] = $this->input->post('alta');
+      $data['dvd'] = $this->input->post('dvd');
 
+      $this->Penicula->alta($data);
+      redirect('admin/peniculas/index');
+    }
+  }
+/*
   function borrar($id = null)
   {
     if ($id == null) redirect("/usuarios/index");
@@ -82,7 +110,7 @@ class Peniculas extends CI_Controller
     
     redirect('usuarios/index');
   }
-
+  
   /*function _comprobar_minusculas($valor)
   {
     if (strtolower($valor) == $valor)

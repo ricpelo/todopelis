@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Personas extends CI_Controller {
+
+class Personas extends CI_Controller
+{
   public function index()
   {
     $this->load->model('Persona');
@@ -18,5 +20,7 @@ class Personas extends CI_Controller {
     $data['criterio'] = $criterio;
     
     $this->load->view('admin/personas/index', $data);  
+
   }
 }
+
