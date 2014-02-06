@@ -4,8 +4,6 @@ class Penicula extends CI_Model
 {
   function cartelera()
   {
-    $this->load->database();
-
     $res = $this->db->query("select id, titulo, cartel, estreno 
                                from peniculas 
                               where estreno > (current_date - 30)

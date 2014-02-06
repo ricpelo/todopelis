@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Personas extends CI_Controller {
+
+class Personas extends CI_Controller
+{
   public function index()
   {
     $criterio = trim($this->input->post('criterio'));
@@ -13,5 +15,7 @@ class Personas extends CI_Controller {
     $data['filas'] = $res;
     $data['criterio'] = $criterio;
     
-    $this->load->view('admin/personas/index', $data);  }
+    $this->load->view('admin/personas/index', $data);
+  }
 }
+
