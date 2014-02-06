@@ -25,7 +25,8 @@ drop table personas cascade;
 
 create table personas (
   id     bigserial constraint pk_personas primary key,
-  nombre varchar(100) not null constraint uq_personas_nombre_unico unique
+  nombre varchar(100) not null,
+  ano    numeric(4)
 );
 
 drop table cargos cascade;

@@ -1,0 +1,9 @@
+<?= validation_errors() ?>
+<?= form_open('/admin/personas/alta') ?>
+  <?= form_label('Nombre: ', 'nombre') ?>
+  <?= form_input('nombre', set_value('nombre')) ?><br/>
+  <?= form_label('Año: ', 'ano') ?>
+  <?= form_input('ano', set_value('ano')) ?><br/>
+  <?= form_submit('alta', 'Alta') ?>
+  <?= anchor("/admin/personas/index", 'Volver') ?>
+<?= form_close() ?>
