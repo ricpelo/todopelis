@@ -20,7 +20,7 @@ class Peniculas extends CI_Controller
 
   }
   
-  function ficha_de($id_penicula = null)
+  function ficha($id_penicula = null)
   {
     try
     {
@@ -48,7 +48,7 @@ class Peniculas extends CI_Controller
     }
   }
   
-  function comentarios_de($id_penicula = null)
+  function comentarios($id_penicula = null)
   {
     
   }

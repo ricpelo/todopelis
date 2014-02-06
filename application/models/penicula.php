@@ -62,28 +62,32 @@ class Penicula extends CI_Model
   
   function obtener_directores($id_penicula)
   {
-    $res = $this->db->query("select * from directores where id_peniculas = ?", array($id_penicula));
+    $res = $this->db->query("select * from directores 
+                             where id_peniculas = ?", array($id_penicula));
                              
     return $res->result_array();
   }
   
   function obtener_reparto($id_penicula)
   {
-    $res = $this->db->query("select * from actores where id_peniculas = ?", array($id_penicula));
+    $res = $this->db->query("select * from actores 
+                             where id_peniculas = ?", array($id_penicula));
                              
     return $res->result_array();
   }
   
   function obtener_generos($id_penicula)
   {
-    $res = $this->db->query("select * from generos_de_penicula where id_peniculas = ?", array($id_penicula));
+    $res = $this->db->query("select * from generos_de_penicula 
+                             where id_peniculas = ?", array($id_penicula));
                              
     return $res->result_array();
   }
   
   function obtener_paises($id_penicula)
   {
-    $res = $this->db->query("select * from paises_de_penicula where id_peniculas = ?", array($id_penicula));
+    $res = $this->db->query("select * from paises_de_penicula 
+                             where id_peniculas = ?", array($id_penicula));
                              
     return $res->result_array();
 
