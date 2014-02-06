@@ -35,8 +35,7 @@ create table cargos (
 );
 
 drop table participan cascade;
-create table participan (
-  id           bigserial constraint pk_participan primary key,
+create table participan ( 
   id_peniculas bigint    not null constraint fk_participan_peniculas
                          references peniculas (id) on update cascade 
                          on delete cascade,
@@ -45,14 +44,15 @@ create table participan (
                          on delete cascade,
   id_cargos    bigint    not null constraint fk_participan_cargos
                          references cargos (id) on update cascade 
-                         on delete no action
+                         on delete no action,
+  constraint pk_participan primary key (id_peniculas, id_personas, id_cargos)
 );
 
 drop table generos cascade;
 create table generos (
   id     bigserial   constraint pk_generos primary key,
   nombre varchar(50) not null constraint uq_generos_nombre_unico unique
-  );
+);
 
 
 drop table comentarios cascade;
@@ -79,7 +79,7 @@ create table generos_peniculas(
 );
 
 drop table paises_peniculas cascade;
-create table paises_peniculas(
+create table paises_peniculas (
   id_paises      bigint constraint fk_paises_peniculas_paises
                       references paises (id) on update cascade
                       on delete no action,
@@ -88,7 +88,8 @@ create table paises_peniculas(
                       on delete cascade,
   constraint pk_paises_peniculas primary key (id_paises, id_peniculas)
 );
-          drop table usuarios cascade;
+
+drop table usuarios cascade;
 
 create table usuarios (
   id       bigserial   constraint pk_usuarios primary key,
@@ -98,7 +99,6 @@ create table usuarios (
 );
 
 create index idx_usuarios_usuario_password on usuarios (usuario, password);
-
 
 drop table ci_sessions cascade;
 

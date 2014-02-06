@@ -25,18 +25,12 @@ class Peniculas extends CI_Controller
     try
     {
       if ($id_penicula == null) throw new Exception("Película incorrecta");
-    
-      $datos = $this->Penicula->obtener_datos($id_penicula);
-      $directores = $this->Penicula->obtener_directores($id_penicula);
-      $reparto = $this->Penicula->obtener_reparto($id_penicula);
-      $generos = $this->Penicula->obtener_generos($id_penicula);
-      $paises = $this->Penicula->obtener_paises($id_penicula);
-      
-      $data['datos'] = $datos;
-      $data['directores'] = $directores;
-      $data['reparto'] = $reparto;
-      $data['generos'] = $generos;
-      $data['paises'] = $paises;
+
+      $data['datos'] = $this->Penicula->obtener_datos($id_penicula);
+      $data['directores'] = $this->Penicula->obtener_directores($id_penicula);
+      $data['reparto'] = $this->Penicula->obtener_reparto($id_penicula);
+      $data['generos'] = $this->Penicula->obtener_generos($id_penicula);
+      $data['paises'] = $this->Penicula->obtener_paises($id_penicula);
       
       $this->load->view('peniculas/ficha', $data);
     }

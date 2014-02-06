@@ -5,29 +5,25 @@ class Peniculas extends CI_Controller
   
   function index()
   {
-   
     $nombre = trim($this->input->post('nombre'));
 
-    if($nombre == FALSE || $nombre == '')
+    if ($nombre == FALSE || $nombre == '')
+    {
       $res = $this->Penicula->todas();
+    }
     else
-      $res = $this->Penicula->buscar($nombre);  
+    {
+      $res = $this->Penicula->buscar($nombre);
+    }
     
     $data['filas'] = $res;
     $data['nombre'] = $nombre;
     
-    
     $this->load->view('admin/peniculas/index', $data);
   }
 
-  
-  
   function alta()
   {
-
-    
-
-
     $reglas = array(
       array(
         'field' => 'titulo',
