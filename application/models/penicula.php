@@ -55,7 +55,7 @@ class Penicula extends CI_Model
     $res = $this->db->query("select * from peniculas
                              where id = ?", array($id_penicula));
                              
-    return $res->result_array();
+    return $res->row_array();
   }
   
   function obtener_directores($id_penicula)
