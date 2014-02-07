@@ -26,4 +26,4 @@
 
 <?= anchor("/admin/personas/alta", 'Nueva persona') ?><br />
 
-<?= anchor("/admin/usuarios/index") ?>
+<?= anchor("/admin/usuarios/index", "Volver") ?>

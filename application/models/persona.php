@@ -14,5 +14,18 @@ class Persona extends CI_Model
   {
     return $this->todos("nombre like '%' || ? || '%'", array($nombre));
   }
+  
+  function obtener($id)
+  {
+    $res = $this->todos("id = ?", array($id));
+    return (!empty($res)) ? $res[0] : FALSE;
+  }
+  
+  function editar($id, $nombre, $ano)
+  {
+      $this->db->query("update personas
+                           set nombre = ?, ano = ?
+                         where id = ?", array($nombre, $ano, $id));
+  }
 }
 
