@@ -62,7 +62,21 @@ class Peniculas extends CI_Controller
   
   function comentarios($id_penicula = null)
   {
-    
+    try
+    {
+      if ($id_penicula == null) throw new Exception("Película incorrecta");
+
+      $data['comentarios'] = $this->Penicula->comentarios($id_penicula);
+      $data['penicula'] = $id_penicula;
+      
+      $this->load->view('peniculas/comentarios', $data);
+    }
+    catch (Exception $e)
+    {
+      $data['mensaje'] = $e->getMessage();
+      
+      $this->load->view('comunes/error', $data);
+    }
   }
   
 }

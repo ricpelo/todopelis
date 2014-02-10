@@ -23,7 +23,11 @@
 		<?php endforeach ?>
 	</tbody>
 </table>
+<div style="text-align: center">
+	<?= paginado($pag, $npags)?>
+</div>
+
 
 <?= anchor("/admin/personas/alta", 'Nueva persona') ?><br />
 
-<?= anchor("/admin/usuarios/index") ?>
+<?= anchor("/admin/usuarios/index", "Volver") ?>

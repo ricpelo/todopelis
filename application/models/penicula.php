@@ -99,5 +99,12 @@ class Penicula extends CI_Model
                              
     return $res->result_array();
   }
-
+  
+  function comentarios($id_penicula)
+  {
+    $res = $this->db->query("select * from comentarios_v 
+                             where id_peniculas = ?", array($id_penicula));
+    
+    return $res->result_array();
+  }
 }
