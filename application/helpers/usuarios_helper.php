@@ -30,3 +30,12 @@ function paginado($pag, $npags)
   
 }
 
+function esta_logueado(){
+  $CI =& get_instance();
+  if($CI->session->userdata('id_login') != null){
+    return true;
+  }else{
+    return false;
+  }
+}
+
