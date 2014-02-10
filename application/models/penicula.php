@@ -88,4 +88,8 @@ class Penicula extends CI_Model
     return $res->result_array();
 
   }
+  function borrar($id_penicula)
+  {
+    $this->db->query("delete from peniculas where id = ?", array($id_penicula));
+  }
 }

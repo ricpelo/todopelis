@@ -16,8 +16,8 @@
       <tr align="center">
         <td><?= $fila['titulo'] ?></td>
         <td><?= $fila['alta'] ?></td>
-        <td><?= anchor("/peniculas/editar/{$fila['id']}", 'Editar') ?></td>
-        <td><?= anchor("/peniculas/borrar/{$fila['id']}", 'Borrar') ?></td>
+        <td><?= anchor("peniculas/editar/{$fila['id']}", 'Editar') ?></td>
+        <td><?= anchor("admin/peniculas/borrar/{$fila['id']}", 'Borrar') ?></td>
       </tr>
     <?php endforeach ?>
   </tbody>
