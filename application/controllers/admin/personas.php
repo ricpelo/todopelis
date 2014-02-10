@@ -30,7 +30,7 @@ class Personas extends CI_Controller
     $this->load->view('admin/personas/index', $data);  
 
   }
-
+  
   function alta()
   {
     $reglas = array(
@@ -79,6 +79,39 @@ class Personas extends CI_Controller
     }
     
     redirect('admin/personas/index');
+  }
+  
+  function editar($id)
+  {
+    $reglas = array(
+      array(
+        'field' => 'nombre',
+        'label' => 'Nombre',
+        'rules' => "trim|required|max_length[100]"
+      ),
+      
+      array(
+        'field' => 'ano',
+        'label' => 'Año de nacimiento',
+        'rules' => 'trim|numeric|max_length[4]|greater_than[0]'
+      ),
+    );
+    
+    $this->form_validation->set_rules($reglas);
+    
+    if ($this->form_validation->run() == FALSE)
+    {
+      $data['id'] = $id;
+      $data['fila'] = $this->Persona->obtener($id);
+      $this->load->view('admin/personas/editar', $data);
+    }
+    else
+    {
+      $nombre = $this->input->post('nombre');
+      $ano = $this->input->post('ano');
+      $this->Persona->editar($id, $nombre, $ano);     
+      redirect('admin/personas/index');
+    }
   }
 }
 
