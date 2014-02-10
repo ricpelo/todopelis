@@ -6,11 +6,15 @@
 </head>
 <body>
 	<h1>Todopelis</h1>
-	<hr />
+  <?= form_open("/portal/usuarios/logout") ?>
+    <p align="right">Usuario: <?= usuario_logueado() ?>
+    <?= form_submit('logout', 'Logout') ?></p>
+  <?= form_close() ?>
+  <hr/>
   <?= $contents ?>
+  <hr />
+  <?= anchor("/portal/usuarios/index", 'Inicio') ?>
 </body>
 </html>
-
-
 
 
