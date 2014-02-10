@@ -1,4 +1,4 @@
-<?= form_open("/admin/personas/buscar/") ?>
+<?= form_open("/admin/personas/index/") ?>
   <?= form_input('criterio', $criterio) ?>
   <?= form_submit('buscar', 'buscar') ?>
 <?= form_close() ?>
@@ -23,7 +23,11 @@
 		<?php endforeach ?>
 	</tbody>
 </table>
+<div style="text-align: center">
+	<?= paginado($pag, $npags)?>
+</div>
+
 
 <?= anchor("/admin/personas/alta", 'Nueva persona') ?><br />
 
-<?= anchor("/admin/usuarios/index") ?>
+<?= anchor("/admin/usuarios/index", "Volver") ?>

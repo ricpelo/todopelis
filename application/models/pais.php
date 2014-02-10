@@ -1,8 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Persona extends CI_Model
+class Pais extends CI_Model
 {
-
   function todos($where = "true", $valores = array(), $limit = "", $offset = 0)
   {
 
@@ -10,9 +9,9 @@ class Persona extends CI_Model
     else             $limit = "limit $limit offset $offset";
 
     $res = $this->db->query("select * 
-                               from personas 
+                               from paises 
                               where $where
-                              order by id
+                              order by nombre
                               $limit", $valores);
     return $res->result_array();
   }
@@ -20,7 +19,7 @@ class Persona extends CI_Model
   function num_filas()
   {
     $res = $this->db->query("select count(*) as total
-                               from personas");
+                               from paises");
     $res = $res->row_array();
     return $res['total'];
   }
@@ -29,35 +28,22 @@ class Persona extends CI_Model
     return $this->todos("nombre like '%' || ? || '%'", array($nombre));
   }
 
-  function alta($nombre, $ano)
+  function alta($nombre, $bandera)
   {
-    if ($ano == "") {
-      $this->db->query("insert into personas (nombre)
+    if ($bandera == "") {
+      $this->db->query("insert into paises (nombre)
                                values (?)",
                                array($nombre));  
     }
     else{
-      $this->db->query("insert into personas (nombre, ano)
+      $this->db->query("insert into paises (nombre, bandera)
                                values (?, ?)",
-                               array($nombre, $ano));
+                               array($nombre, $bandera));
     }
   }
 
   function borrar($id)
   {
-    $this->db->query("delete from personas where id = ?", array($id));
-  }
-  
-  function obtener($id)
-  {
-    $res = $this->todos("id = ?", array($id));
-    return (!empty($res)) ? $res[0] : FALSE;
-  }
-  
-  function editar($id, $nombre, $ano)
-  {
-      $this->db->query("update personas
-                           set nombre = ?, ano = ?
-                         where id = ?", array($nombre, $ano, $id));
+    $this->db->query("delete from paises where id = ?", array($id));
   }
 }

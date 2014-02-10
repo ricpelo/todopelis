@@ -5,26 +5,26 @@ class Peniculas extends CI_Controller
   
   function index()
   {
-   
     $nombre = trim($this->input->post('nombre'));
 
-    if($nombre == FALSE || $nombre == '')
+    if ($nombre == FALSE || $nombre == '')
+    {
       $res = $this->Penicula->todas();
+    }
     else
-      $res = $this->Penicula->buscar($nombre);  
+    {
+      $res = $this->Penicula->buscar($nombre);
+    }
     
     $data['filas'] = $res;
     $data['nombre'] = $nombre;
     
-    
     $this->load->view('admin/peniculas/index', $data);
   }
 
-  
-  
   function alta()
   {
-
+  	$fecha = $this->input->post('estreno');
     
 
 
@@ -57,13 +57,13 @@ class Peniculas extends CI_Controller
        array(
         'field' => 'estreno',
         'label' => 'Estreno',
-        'rules' => 'trim'
+        'rules' => "trim|callback__validar_fecha[$fecha]"
       ),
        
       array(
         'field' => 'dvd',
         'label' => 'DVD',
-        'rules' => 'trim'
+        'rules' => "trim|callback__validar_fecha[$fecha]"
       )      
     );
     
@@ -73,23 +73,21 @@ class Peniculas extends CI_Controller
     if ($this->form_validation->run() == FALSE)
     {
       $this->load->view('admin/peniculas/alta');
-      $estrenoCompleta = $this->input->post('estreno');
-
-      $cortadas = explode('/',$estrenoCompleta);
-
-      var_dump($cortadas); // NOS QUEDAMOS AQUI !!!
+      
     }
     else
     {
       $data['titulo'] = $this->input->post('titulo');
-      $data['ano'] = $this->input->post('ano');
-      $data['duracion'] = $this->input->post('duracion');
-      $data['sinopsis'] = $this->input->post('sinopsis');
-      $data['cartel'] = $this->input->post('cartel');
-      $data['estreno'] = $this->input->post('estreno');
-      $data['alta'] = $this->input->post('alta');
-      $data['dvd'] = $this->input->post('dvd');
+      $data['ano'] =  ($this->input->post('ano') != '') ? $this->input->post('ano'): null;
+      $data['duracion'] = ($this->input->post('duracion') != '') ? $this->input->post('duracion'): null;
+      $data['sinopsis'] = ($this->input->post('sinopsis') != '') ? $this->input->post('sinopsis'): null;
+      $data['cartel'] = ($this->input->post('cartel') != '') ? $this->input->post('cartel'): null;
+      $data['estreno'] = ($this->input->post('estreno') != '') ? $this->input->post('estreno'): null;
+      $data['alta'] = ($this->input->post('alta') != '') ? $this->input->post('alta'): null;
+      $data['dvd'] = ($this->input->post('dvd') != '') ? $this->input->post('dvd'): null;
 
+      
+      
       $this->Penicula->alta($data);
       redirect('admin/peniculas/index');
     }
@@ -113,21 +111,43 @@ class Peniculas extends CI_Controller
     }
     
     redirect('usuarios/index');
-  }
-  
-  /*function _comprobar_minusculas($valor)
-  {
-    if (strtolower($valor) == $valor)
-    {
-      return TRUE;
-    }
-    else
-    {
-      $this->form_validation->set_message('_comprobar_minusculas',
-                  'El campo %s debe estar en minúsculas');
-      return FALSE;
-    }
   }*/
+  
+  function _validar_fecha($fecha)
+  {
+
+  	$fecha = explode('/',$fecha);
+  	if (count($fecha) == 3 )
+  	{  			  	
+		$dia = trim($fecha[0]);
+	  	$mes = trim($fecha[1]);
+	  	$ano = trim($fecha[2]);	  
+
+	  	$ret = '';
+
+		if (checkdate($mes,$dia,$ano))
+    	{
+    		$ret = TRUE;
+    	} 
+    	else
+		{
+			$this->form_validation->set_message('_validar_fecha','Formato de fecha %s incorrecto');
+			$ret = FALSE;
+		}
+  	}
+  	else if (count($fecha) == 1 && $fecha[0] == '')
+  	{
+  		$ret = TRUE;
+  	}
+  	else
+    {
+    	$this->form_validation->set_message('_validar_fecha','Falta o sobran datos en %s');
+    	$ret = FALSE;
+    }
+
+    	return $ret;	    
+   
+  }
 
   
  
