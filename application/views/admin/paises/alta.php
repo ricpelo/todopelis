@@ -1,0 +1,9 @@
+<?= validation_errors() ?>
+<?= form_open('/admin/paises/alta') ?>
+  <?= form_label('Nombre: ', 'nombre') ?>
+  <?= form_input('nombre', set_value('nombre')) ?><br/>
+  <?= form_label('Bandera: ', 'bandera') ?>
+  <?= form_input('bandera', set_value('bandera')) ?><br/>
+  <?= form_submit('alta', 'Alta') ?>
+  <?= anchor("/admin/paises/index", 'Volver') ?>
+<?= form_close() ?>
