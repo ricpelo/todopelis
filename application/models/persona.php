@@ -2,6 +2,7 @@
 
 class Persona extends CI_Model
 {
+
   function todos($where = "true", $valores = array())
   {
     $res = $this->db->query("select * 
