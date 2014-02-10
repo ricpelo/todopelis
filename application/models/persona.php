@@ -2,14 +2,28 @@
 
 class Persona extends CI_Model
 {
-  function todos($where = "true", $valores = array())
+
+  function todos($where = "true", $valores = array(), $limit = "", $offset = 0)
   {
+
+    if($limit == "") $limit = "offset $offset";
+    else             $limit = "limit $limit offset $offset";
+
     $res = $this->db->query("select * 
                                from personas 
-                              where $where", $valores);
+                              where $where
+                              order by id
+                              $limit", $valores);
     return $res->result_array();
   }
 
+  function num_filas()
+  {
+    $res = $this->db->query("select count(*) as total
+                               from personas");
+    $res = $res->row_array();
+    return $res['total'];
+  }
   function por_nombre($nombre)
   {
     return $this->todos("nombre like '%' || ? || '%'", array($nombre));
@@ -33,6 +47,17 @@ class Persona extends CI_Model
   {
     $this->db->query("delete from personas where id = ?", array($id));
   }
-}
-
   
+  function obtener($id)
+  {
+    $res = $this->todos("id = ?", array($id));
+    return (!empty($res)) ? $res[0] : FALSE;
+  }
+  
+  function editar($id, $nombre, $ano)
+  {
+      $this->db->query("update personas
+                           set nombre = ?, ano = ?
+                         where id = ?", array($nombre, $ano, $id));
+  }
+}

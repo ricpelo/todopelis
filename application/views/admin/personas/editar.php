@@ -1,0 +1,10 @@
+<?= validation_errors() ?>
+<?= form_open("/personas/editar/$id") ?>
+  <?= form_label('Nombre:', 'nombre') ?>
+  <?= form_input('nombre', set_value('nombre', $fila['nombre'])) ?><br/>
+  <?= form_label('Año:', 'ano') ?>
+  <?= form_input('ano', set_value('ano', $fila['ano'])) ?><br/>
+  <?= form_password('password_confirm') ?><br/>
+  <?= form_submit('editar', 'Editar') ?>
+  <?= anchor("/admin/personas/index", 'Volver') ?>
+<?= form_close() ?>

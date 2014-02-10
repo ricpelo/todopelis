@@ -7,7 +7,6 @@
 	<buildSpec>
 	</buildSpec>
 	<natures>
-		<nature>com.aptana.projects.webnature</nature>
 		<nature>com.aptana.editor.php.phpNature</nature>
 	</natures>
 </projectDescription>

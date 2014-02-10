@@ -5,27 +5,31 @@
  */
 class Peniculas extends CI_Controller 
 {
-	
-
- function index()
+  function index()
   {
-    $res = $this->cartelera();
-    $res .= $this->estrenos_cine();
-    $res .= $this->estrenos_dvd();
+    echo "hola";
+    $data['peniculas'] = $this->Penicula->cartelera();
+    $res = $this->load->view("portada/cartelera", $data, TRUE);
     
+    $data['peniculas'] = $this->Penicula->estrenos_cine();
+    $res .= $this->load->view("portada/estrenos_cine", $data, TRUE);
+    
+    $data['peniculas'] = $this->Penicula->estrenos_dvd();
+    $res .= $this->load->view("portada/estrenos_dvd", $data, TRUE);
+        
     $this->load->view('comunes/plantilla', array('contents' => $res));
   }
-
-  function cartelera()
-  {
-    $data['peniculas'] = $this->Penicula->cartelera();
-    return $this->load->view("/portada/cartelera", $data, TRUE);
-  }
- 
+  
   function estrenos_cine()
   {
     $data['peniculas'] = $this->Penicula->estrenos_cine();
-    return $this->load->view("portada/estrenos_cine", $data, TRUE);
+    $this->load->view("portada/estrenos_cine", $data);
+  }
+  
+  function cartelera()
+  {
+    $data['peniculas'] = $this->Penicula->cartelera();
+    $this->load->view("portada/cartelera", $data);
   }
   
   function estrenos_dvd()
@@ -39,7 +43,6 @@ class Peniculas extends CI_Controller
   {
     $data['peniculas'] = $this->Penicula->estrenos_dvd();
     $this->load->view("portada/estrenos_dvd", $data);
-
   }
   
   function ficha($id_penicula = null)
@@ -66,7 +69,21 @@ class Peniculas extends CI_Controller
   
   function comentarios($id_penicula = null)
   {
-    
+    try
+    {
+      if ($id_penicula == null) throw new Exception("Película incorrecta");
+
+      $data['comentarios'] = $this->Penicula->comentarios($id_penicula);
+      $data['penicula'] = $id_penicula;
+      
+      $this->load->view('peniculas/comentarios', $data);
+    }
+    catch (Exception $e)
+    {
+      $data['mensaje'] = $e->getMessage();
+      
+      $this->load->view('comunes/error', $data);
+    }
   }
   
 }
