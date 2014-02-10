@@ -14,5 +14,25 @@ class Persona extends CI_Model
   {
     return $this->todos("nombre like '%' || ? || '%'", array($nombre));
   }
+
+  function alta($nombre, $ano)
+  {
+    if ($ano == "") {
+      $this->db->query("insert into personas (nombre)
+                               values (?)",
+                               array($nombre));  
+    }
+    else{
+      $this->db->query("insert into personas (nombre, ano)
+                               values (?, ?)",
+                               array($nombre, $ano));
+    }
+  }
+
+  function borrar($id)
+  {
+    $this->db->query("delete from personas where id = ?", array($id));
+  }
 }
 
+  

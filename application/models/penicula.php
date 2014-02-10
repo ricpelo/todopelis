@@ -95,6 +95,4 @@ class Penicula extends CI_Model
     return $res->result_array();
   }
 
-  
-
 }
