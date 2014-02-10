@@ -101,6 +101,14 @@ create table usuarios (
 
 create index idx_usuarios_usuario_password on usuarios (usuario, password);
 
+drop table admin cascade;
+
+create table admin (
+  id       bigserial   constraint pk_admin primary key,
+  id_usuarios  bigserial constraint fk_admin_usuarios references usuarios (id) on update cascade on delete no action
+);
+
+
 drop table ci_sessions cascade;
 
 CREATE TABLE ci_sessions (
@@ -149,6 +157,9 @@ create view comentarios_v as
 
 insert into usuarios (usuario, password, email) values ('pepe', md5('pepe'), 'pepe@pepe.com');
 insert into usuarios (usuario, password, email) values ('maria', md5('juan'), 'juan@juan.com');
+
+insert into admin (id_usuarios) values (1);
+
 
 INSERT INTO cargos (nombre) VALUES ('director');
 INSERT INTO cargos (nombre) VALUES ('actor');

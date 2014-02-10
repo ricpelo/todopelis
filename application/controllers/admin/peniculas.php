@@ -210,5 +210,26 @@ class Peniculas extends CI_Controller
       return FALSE;
     }
   }*/
+  
+  function borrar($id = null)
+  {
+    if ($id == null) redirect("admin/peniculas/index");
+    
+    $data['id'] = $id;
+    $this->load->view('admin/peniculas/borrar', $data);
+  }
+  
+  function hacer_borrado()
+  {
+    $id = $this->input->post('id');
+    
+    if ($id != FALSE)
+    {
+      $this->Penicula->borrar($id);
+    }
+    
+    redirect('admin/peniculas/index');
+  }
+  
 }
 

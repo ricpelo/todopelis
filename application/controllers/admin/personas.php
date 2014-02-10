@@ -2,7 +2,9 @@
 
 class Personas extends CI_Controller
 {
-  function index()
+  var $FPP = 2;
+  
+  function index($pag = 1)
   {
     $this->load->model('Persona');
     
@@ -10,7 +12,11 @@ class Personas extends CI_Controller
 
     if ($criterio == FALSE){
       $criterio = '';
-      $res = $this->Persona->todos();
+      $nfilas = $this->Persona->num_filas();
+      $npags = ceil($nfilas/$this->FPP);
+      if ($pag > $npags) redirect("/admin/personas/index/1");
+
+      $res = $this->Persona->todos("true",array(),$this->FPP,($pag - 1) * $this->FPP);
     }
     else{
       $res = $this->Persona->por_nombre($criterio);
@@ -18,11 +24,13 @@ class Personas extends CI_Controller
     
     $data['filas'] = $res;
     $data['criterio'] = $criterio;
-    
+    $data['pag'] = $pag;
+    $data['npags'] = $npags;
+
     $this->load->view('admin/personas/index', $data);  
 
   }
-
+  
   function alta()
   {
     $reglas = array(
@@ -71,6 +79,39 @@ class Personas extends CI_Controller
     }
     
     redirect('admin/personas/index');
+  }
+  
+  function editar($id)
+  {
+    $reglas = array(
+      array(
+        'field' => 'nombre',
+        'label' => 'Nombre',
+        'rules' => "trim|required|max_length[100]"
+      ),
+      
+      array(
+        'field' => 'ano',
+        'label' => 'Año de nacimiento',
+        'rules' => 'trim|numeric|max_length[4]|greater_than[0]'
+      ),
+    );
+    
+    $this->form_validation->set_rules($reglas);
+    
+    if ($this->form_validation->run() == FALSE)
+    {
+      $data['id'] = $id;
+      $data['fila'] = $this->Persona->obtener($id);
+      $this->load->view('admin/personas/editar', $data);
+    }
+    else
+    {
+      $nombre = $this->input->post('nombre');
+      $ano = $this->input->post('ano');
+      $this->Persona->editar($id, $nombre, $ano);     
+      redirect('admin/personas/index');
+    }
   }
 }
 
