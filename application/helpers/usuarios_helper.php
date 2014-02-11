@@ -30,13 +30,3 @@ function paginado($pag, $npags)
   return $ret;
   
 }
-
-function boton()
-{
-  if (!get_instance()->Usuario->logueado())
-      {
-        return 'Login';
-      }else{
-        return 'Logout';
-      }
-}
