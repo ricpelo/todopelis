@@ -7,7 +7,7 @@ class Peniculas extends CI_Controller
 {
   function index()
   {
-    echo "hola";
+    //COMPROBAR LOGUEO!!!
     $data['peniculas'] = $this->Penicula->cartelera();
     $res = $this->load->view("portada/cartelera", $data, TRUE);
     

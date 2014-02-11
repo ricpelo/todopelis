@@ -17,31 +17,13 @@ class Usuarios extends CI_Controller
       }
     }
   }
-  function administrar(){
 
-    if ($this->Usuario->logueado())
-      {
-        $criterio = trim($this->input->post('criterio'));
-        $columna = trim($this->input->post('columna'));
-
-        $res = $this->Usuario->buscar($columna, $criterio);
-
-       if ($criterio == FALSE) $criterio = '';
-       if ($columna == FALSE) $columna = 'usuario';
-
-        $opciones = array('usuario' => 'Nombre', 'email' => 'e-mail');
-    
-        $data['filas'] = $res;
-       $data['opciones'] = $opciones;
-       $data['columna'] = $columna;
-       $data['criterio'] = $criterio;
-    
-       $this->template->load('comunes/plantilla', '/admin/usuarios/index', $data);;
-      }
-      else{
-        redirect('/portal/usuarios/login');
-      }
-
+  function _comrpobar_logueo()
+  {
+    if($CI->session->userdata('id_login') == null)
+    {
+      $this->usuarios->logout();
+    }
   }
 
   function logout()
