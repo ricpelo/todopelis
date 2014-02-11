@@ -26,6 +26,15 @@ class Usuario extends CI_Model
                             array($usuario, $password));
     return $res->num_rows() > 0;
   }
+  function admin($id){
+
+    $res = $this->db->query("select id
+                               from admin where id_usuarios =  $id
+                             ");
+
+    return $res->num_rows() > 0;
+
+  }
   
   function logueado()
   {

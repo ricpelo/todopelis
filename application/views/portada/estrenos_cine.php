@@ -11,5 +11,6 @@
       <p>Estreno el: <?= $penicula['estreno']?></p>
     </div>
   <?php endforeach;?>
+    <div style="clear: both;"></div>
 </div>
 <hr />

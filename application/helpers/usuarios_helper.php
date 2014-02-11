@@ -18,6 +18,7 @@ function paginado($pag, $npags)
 {
   $CI =& get_instance();
 
+  
   $ret = anchor('admin/personas/index/1', 'inicio');
 
   for ($i=1; $i <= $npags ; $i++) { 

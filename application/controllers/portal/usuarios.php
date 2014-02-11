@@ -18,14 +18,6 @@ class Usuarios extends CI_Controller
     }
   }
 
-  function _comrpobar_logueo()
-  {
-    if($CI->session->userdata('id_login') == null)
-    {
-      $this->usuarios->logout();
-    }
-  }
-
   function logout()
   {
     $this->session->sess_destroy();
@@ -59,8 +51,13 @@ class Usuarios extends CI_Controller
     {
       $id = $this->Usuario->obtener_id($usuario);
       $this->session->set_userdata('id_login', $id);
-      redirect('/portal/usuarios/index');
-    }    
+      $data['id_usuario'] = $id;
+      if ($this->Usuario->admin($id)){
+        redirect('/admin/usuarios/index');
+      }
+        else{
+      redirect('/portal');}
+    }
   }
   
   function _usuario_existe($password, $usuario)

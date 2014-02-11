@@ -24,7 +24,7 @@ class Penicula extends CI_Model
 
   function todas()
   {
-    $res = $this->db->query("select * 
+    $res = $this->db->query("select * ,to_char(alta, 'DD-MM-YYYY') as alta_format
                              from peniculas
                              order by alta desc");
 
@@ -33,21 +33,11 @@ class Penicula extends CI_Model
 
   function buscar($nombre)
   {
-    $res = $this->db->query("select * 
+    $res = $this->db->query("select * ,to_char(alta, 'DD-MM-YYYY') as alta_format
                              from peniculas
                              where titulo like '%' || ? || '%'
                              order by alta desc",array($nombre));
 
-    return $res->result_array();
-  }
-  
-  function estrenos_dvd()
-  { 
-    $res = $this->db->query("select id, titulo, cartel, dvd 
-                               from peniculas 
-                              where dvd <= (current_date + 30)
-                                and dvd > current_date;
-                                          ");
     return $res->result_array();
   }
 
@@ -58,10 +48,35 @@ class Penicula extends CI_Model
                              array($data['titulo'], $data['ano'],$data['duracion'],$data['sinopsis'],
                               $data['cartel'],$data['estreno'],$data['dvd']));
   }
+  
+  function editar($data)
+  {
+    $res = $this->db->query("update peniculas set titulo = ?,
+                                                  ano = ?,
+                                                  duracion = ?,
+                                                  sinopsis = ?,
+                                                  cartel = ?,
+                                                  estreno = ?,
+                                                  dvd = ? where id = ?",
+                              array($data['titulo'], $data['ano'],$data['duracion'],$data['sinopsis'],
+                              $data['cartel'],$data['estreno'],$data['dvd'], $data['id']));
+  }
+
+  
+  function estrenos_dvd()
+  { 
+    $res = $this->db->query("select id, titulo, cartel,dvd
+                               from peniculas 
+                              where estreno < (current_date + 30)
+                                and estreno > current_date;
+                                          ");
+    return $res->result_array();
+  }
 
   function obtener_datos($id_penicula)
   {
-    $res = $this->db->query("select * from peniculas
+    $res = $this->db->query("select *, to_char(estreno, 'DD-MM-YYYY') as estreno_format,
+                                       to_char(dvd, 'DD-MM-YYYY') as dvd_format  from peniculas
                              where id = ?", array($id_penicula));
                              
     return $res->row_array();
@@ -83,14 +98,6 @@ class Penicula extends CI_Model
     return $res->result_array();
   }
   
-  function obtener_generos($id_penicula)
-  {
-    $res = $this->db->query("select * from generos_de_penicula 
-                             where id_peniculas = ?", array($id_penicula));
-                             
-    return $res->result_array();
-  }
-  
   function obtener_paises($id_penicula)
   {
     $res = $this->db->query("select * from paises_de_penicula 
@@ -105,5 +112,9 @@ class Penicula extends CI_Model
                              where id_peniculas = ?", array($id_penicula));
     
     return $res->result_array();
+  }
+  function borrar($id_penicula)
+  {
+    $this->db->query("delete from peniculas where id = ?", array($id_penicula));
   }
 }
