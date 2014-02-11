@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -7,8 +8,12 @@
 <body>
 	<h1>Todopelis</h1>
   <?= form_open("/portal/usuarios/logout") ?>
-    <p align="right">Usuario: <?= usuario_logueado() ?>
-    <?= form_submit('logout', 'Logout') ?></p>
+    <?php if (get_instance()->Usuario->logueado()): ?>
+      <p align="right">Usuario: <?= usuario_logueado() ?>
+      <?= form_submit('logout', 'Logout') ?></p>
+    <?php else: ?>
+      <p align="right"><?= form_submit('logout', 'Login') ?></p>
+    <?php endif ?>   
   <?= form_close() ?>
   <hr/>
   <?= $contents ?>
@@ -16,5 +21,3 @@
   <?= anchor("/portal", 'Inicio') ?>
 </body>
 </html>
-
-
