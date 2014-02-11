@@ -1,5 +1,5 @@
 <?= validation_errors() ?>
-<?= form_open("/usuarios/login") ?>
+<?= form_open("portal/usuarios/login") ?>
   <?= form_label('Usuario:', 'usuario') ?>
   <?= form_input('usuario', set_value('usuario')) ?><br/>
   <?= form_label('Contraseña:', 'password') ?>

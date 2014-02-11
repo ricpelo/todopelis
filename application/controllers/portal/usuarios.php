@@ -11,11 +11,12 @@ class Usuarios extends CI_Controller
 
     if ($d != 'portal' || $c != 'usuarios' || $m != 'login')
     {
-      if (!$this->Usuario->logueado())
+     	if (!$this->Usuario->logueado())
       {
         redirect('/portal/usuarios/login');
       }
     }
+  
   }
   
 

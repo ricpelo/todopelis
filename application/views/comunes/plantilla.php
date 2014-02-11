@@ -13,7 +13,7 @@
   <hr/>
   <?= $contents ?>
   <hr />
-  <?= anchor("/portal/usuarios/index", 'Inicio') ?>
+  <?= anchor("/portal", 'Inicio') ?>
 </body>
 </html>
 
