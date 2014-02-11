@@ -26,7 +26,9 @@ class Usuario extends CI_Model
                             array($usuario, $password));
     return $res->num_rows() > 0;
   }
-  function admin($id){
+  function admin(){
+
+    $id = $this->session->userdata('id_login');
 
     $res = $this->db->query("select id
                                from admin where id_usuarios =  $id

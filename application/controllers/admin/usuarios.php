@@ -13,6 +13,10 @@ class Usuarios extends CI_Controller
       {
         redirect('/portal/usuarios/login');
       }
+      if(!$this->Usuario->admin())
+      {
+        redirect('/portal');
+      }
     }
   
   }
