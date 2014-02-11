@@ -17,32 +17,7 @@ class Usuarios extends CI_Controller
       }
     }
   }
-  function administrar(){
-
-    if ($this->Usuario->logueado())
-      {
-        $criterio = trim($this->input->post('criterio'));
-        $columna = trim($this->input->post('columna'));
-
-        $res = $this->Usuario->buscar($columna, $criterio);
-
-       if ($criterio == FALSE) $criterio = '';
-       if ($columna == FALSE) $columna = 'usuario';
-
-        $opciones = array('usuario' => 'Nombre', 'email' => 'e-mail');
-    
-        $data['filas'] = $res;
-       $data['opciones'] = $opciones;
-       $data['columna'] = $columna;
-       $data['criterio'] = $criterio;
-    
-       $this->template->load('comunes/plantilla', '/admin/usuarios/index', $data);;
-      }
-      else{
-        redirect('/portal/usuarios/login');
-      }
-
-  }
+  
 
   function logout()
   {
@@ -77,8 +52,13 @@ class Usuarios extends CI_Controller
     {
       $id = $this->Usuario->obtener_id($usuario);
       $this->session->set_userdata('id_login', $id);
-      redirect('/portal/usuarios/index');
-    }    
+      $data['id_usuario'] = $id;
+      if ($this->Usuario->admin($id)){
+        redirect('/admin/usuarios/index');
+      }
+        else{
+      redirect('/portal');}
+    }
   }
   
   function _usuario_existe($password, $usuario)
