@@ -26,6 +26,15 @@ class Usuario extends CI_Model
                             array($usuario, $password));
     return $res->num_rows() > 0;
   }
+  function admin($id){
+
+    $res = $this->db->query("select id
+                               from admin where id_usuarios =  $id
+                             ");
+
+    return $res->num_rows() > 0;
+
+  }
   
   function logueado()
   {
@@ -57,47 +66,7 @@ class Usuario extends CI_Model
     }
     return $res;
   }
-  
-  function seguidores_de($seguido)
-  {
-    $res = $this->db->query("select seguidor_id as id, usuario as nombre
-                               from relaciones join usuarios
-                                 on seguidor_id = id
-                              where seguido_id = ?", array($seguido));
-    return $res->result_array();
-  }
-  
-  function sigue_a($seguidor, $seguido)
-  {
-    $seguidores = $this->seguidores_de($seguido);
     
-    foreach ($seguidores as $seg)
-    {
-      if ($seg['id'] == $seguidor)
-      {
-        return TRUE;
-      }
-    }
-    
-    return FALSE;
-  }
-  
-  function seguir($seguidor, $seguido)
-  {
-    if (!$this->sigue_a($seguidor, $seguido))
-    {
-      $this->db->query("insert into relaciones (seguidor_id, seguido_id)
-                        values (?, ?)", array($seguidor, $seguido));
-    }
-  }
-
-  function dejar_de_seguir($seguidor, $seguido)
-  {
-    $this->db->query("delete from relaciones
-                      where seguidor_id = ? and seguido_id = ?",
-                      array($seguidor, $seguido));
-  }
-  
   function obtener_id($nombre)
   {
     $res = $this->todos("usuario = ?", array($nombre));

@@ -111,7 +111,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('Penicula','Usuario','Persona');
+$autoload['model'] = array('Penicula','Usuario','Persona','Genero');
 
 
 /* End of file autoload.php */

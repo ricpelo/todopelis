@@ -101,6 +101,14 @@ create table usuarios (
 
 create index idx_usuarios_usuario_password on usuarios (usuario, password);
 
+drop table admin cascade;
+
+create table admin (
+  id       bigserial   constraint pk_admin primary key,
+  id_usuarios  bigserial constraint fk_admin_usuarios references usuarios (id) on update cascade on delete no action
+);
+
+
 drop table ci_sessions cascade;
 
 CREATE TABLE ci_sessions (
@@ -150,6 +158,9 @@ create view comentarios_v as
 insert into usuarios (usuario, password, email) values ('pepe', md5('pepe'), 'pepe@pepe.com');
 insert into usuarios (usuario, password, email) values ('maria', md5('juan'), 'juan@juan.com');
 
+insert into admin (id_usuarios) values (1);
+
+
 INSERT INTO cargos (nombre) VALUES ('director');
 INSERT INTO cargos (nombre) VALUES ('actor');
 
@@ -158,10 +169,10 @@ INSERT INTO generos (nombre) VALUES ('Comedia');
 INSERT INTO generos (nombre) VALUES ('Ciencia Ficción');
 INSERT INTO generos (nombre) VALUES ('Drama');
 
-INSERT INTO paises (nombre,bandera) VALUES ('Espein','espein.gif');
-INSERT INTO paises (nombre,bandera) VALUES ('Freinch','freinch.gif');
-INSERT INTO paises (nombre,bandera) VALUES ('Jinlang','jinlang.gif');
-INSERT INTO paises (nombre,bandera) VALUES ('Iuesei','iuesei.gif');
+INSERT INTO paises (nombre,bandera) VALUES ('Espein','uploads/carteles/Spain.png');
+INSERT INTO paises (nombre,bandera) VALUES ('Freinch','uploads/carteles/France.png');
+INSERT INTO paises (nombre,bandera) VALUES ('Jinlang','uploads/carteles/England.png');
+INSERT INTO paises (nombre,bandera) VALUES ('Iuesei','uploads/carteles/United-States.png');
 
 INSERT INTO personas (nombre) VALUES ('George Lucas');
 INSERT INTO personas (nombre) VALUES ('Liam Neeson');

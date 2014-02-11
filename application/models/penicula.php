@@ -24,7 +24,7 @@ class Penicula extends CI_Model
 
   function todas()
   {
-    $res = $this->db->query("select * 
+    $res = $this->db->query("select * ,to_char(alta, 'DD-MM-YYYY') as alta_format
                              from peniculas
                              order by alta desc");
 
@@ -33,7 +33,7 @@ class Penicula extends CI_Model
 
   function buscar($nombre)
   {
-    $res = $this->db->query("select * 
+    $res = $this->db->query("select * ,to_char(alta, 'DD-MM-YYYY') as alta_format
                              from peniculas
                              where titulo like '%' || ? || '%'
                              order by alta desc",array($nombre));
@@ -50,6 +50,19 @@ class Penicula extends CI_Model
                               $data['cartel'],$data['estreno'],$data['dvd']));
   }
 
+  function editar($data)
+  {
+    $res = $this->db->query("update peniculas set titulo = ?,
+                                                  ano = ?,
+                                                  duracion = ?,
+                                                  sinopsis = ?,
+                                                  cartel = ?,
+                                                  estreno = ?,
+                                                  dvd = ? where id = ?",
+                              array($data['titulo'], $data['ano'],$data['duracion'],$data['sinopsis'],
+                              $data['cartel'],$data['estreno'],$data['dvd'], $data['id']));
+  }
+
   
   function estrenos_dvd()
   { 
@@ -62,7 +75,8 @@ class Penicula extends CI_Model
   }
   function obtener_datos($id_penicula)
   {
-    $res = $this->db->query("select * from peniculas
+    $res = $this->db->query("select *, to_char(estreno, 'DD-MM-YYYY') as estreno_format,
+                                       to_char(dvd, 'DD-MM-YYYY') as dvd_format  from peniculas
                              where id = ?", array($id_penicula));
                              
     return $res->row_array();
@@ -79,14 +93,6 @@ class Penicula extends CI_Model
   function obtener_reparto($id_penicula)
   {
     $res = $this->db->query("select * from actores 
-                             where id_peniculas = ?", array($id_penicula));
-                             
-    return $res->result_array();
-  }
-  
-  function obtener_generos($id_penicula)
-  {
-    $res = $this->db->query("select * from generos_de_penicula 
                              where id_peniculas = ?", array($id_penicula));
                              
     return $res->result_array();
@@ -110,6 +116,7 @@ class Penicula extends CI_Model
     
     return $res->result_array();
   }
+
   
   function numero_comentarios($id_penicula)
   {
@@ -117,4 +124,10 @@ class Penicula extends CI_Model
                                     where id_peniculas = ?", array($id_penicula));
   }
   
+
+  function borrar($id_penicula)
+  {
+    $this->db->query("delete from peniculas where id = ?", array($id_penicula));
+  }
+
 }
