@@ -17,5 +17,35 @@ class Generos extends CI_Controller
     $data['nombre'] = $genero; 
     $this->load->view('generos/ver_generos', $data);
   }
+  
+  function borrar($id)
+  {
+    if ($id != '')
+    {
+      $this->Genero->borrar($id);
+    }
+    else
+    {
+     redirect("/admin/generos/index"); 
+    }
+  }
+  
+  function modificar($id)
+  {
+    $genero = trim($this->input->post('nombre'));
+   
+    
+    if ($genero == FALSE || $genero == '')
+    {
+      $data['genero'] = $this->Genero->obtener($id);
+      
+      $this->load->view("generos/modificar", $data);  
+    }
+    else 
+    {
+      $this->Genero->modificar($id, $genero);
+    }
+    
+  }
 }
 
