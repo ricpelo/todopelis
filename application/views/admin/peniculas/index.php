@@ -15,8 +15,8 @@
     <?php foreach ($filas as $fila): ?>
       <tr align="center">
         <td><?= $fila['titulo'] ?></td>
-        <td><?= $fila['alta'] ?></td>
-        <td><?= anchor("peniculas/editar/{$fila['id']}", 'Editar') ?></td>
+        <td><?= $fila['alta_format'] ?></td>
+        <td><?= anchor("admin/peniculas/editar/{$fila['id']}", 'Editar') ?></td>
         <td><?= anchor("admin/peniculas/borrar/{$fila['id']}", 'Borrar') ?></td>
       </tr>
     <?php endforeach ?>

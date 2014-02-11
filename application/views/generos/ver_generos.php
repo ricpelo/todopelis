@@ -16,7 +16,7 @@
       <tr align="center">
         <td><?= $fila['id'] ?></td>
         <td><?= $fila['nombre'] ?></td>
-        <td><?= anchor("admin/generos/editar/{$fila['id']}", 'Editar') ?></td>
+        <td><?= anchor("admin/generos/modificar/{$fila['id']}", 'Editar') ?></td>
         <td><?= anchor("admin/generos/borrar/{$fila['id']}", 'Borrar') ?></td>
       </tr>
     <?php endforeach ?>

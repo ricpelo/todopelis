@@ -169,10 +169,10 @@ INSERT INTO generos (nombre) VALUES ('Comedia');
 INSERT INTO generos (nombre) VALUES ('Ciencia Ficción');
 INSERT INTO generos (nombre) VALUES ('Drama');
 
-INSERT INTO paises (nombre,bandera) VALUES ('Espein','espein.gif');
-INSERT INTO paises (nombre,bandera) VALUES ('Freinch','freinch.gif');
-INSERT INTO paises (nombre,bandera) VALUES ('Jinlang','jinlang.gif');
-INSERT INTO paises (nombre,bandera) VALUES ('Iuesei','iuesei.gif');
+INSERT INTO paises (nombre,bandera) VALUES ('Espein','uploads/carteles/Spain.png');
+INSERT INTO paises (nombre,bandera) VALUES ('Freinch','uploads/carteles/France.png');
+INSERT INTO paises (nombre,bandera) VALUES ('Jinlang','uploads/carteles/England.png');
+INSERT INTO paises (nombre,bandera) VALUES ('Iuesei','uploads/carteles/United-States.png');
 
 INSERT INTO personas (nombre) VALUES ('George Lucas');
 INSERT INTO personas (nombre) VALUES ('Liam Neeson');
