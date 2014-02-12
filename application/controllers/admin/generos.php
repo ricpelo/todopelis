@@ -78,7 +78,10 @@ class Generos extends CI_Controller
     else
     {
       $this->Genero->alta($genero);
+
+      redirect("/admin/generos/index"); 
     }
+
   }
 }
 
