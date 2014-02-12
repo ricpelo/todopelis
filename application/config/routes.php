@@ -38,6 +38,7 @@
 |
 */
 
+$route['portal/peniculas/(:num)'] = 'portal/peniculas/ficha/$1';
 $route['default_controller'] = "portal/peniculas";
 $route['404_override'] = '';
 

@@ -1,0 +1,15 @@
+     tablename     
+-------------------
+ usuarios
+ paises
+ generos
+ generos_peniculas
+ personas
+ comentarios
+ cargos
+ participan
+ peniculas
+ paises_peniculas
+ ci_sessions
+(11 rows)
+

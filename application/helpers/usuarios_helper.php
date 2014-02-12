@@ -30,5 +30,5 @@ function paginado($pag, $npags, $vista)
 
     return $ret;
   }
-}
 
+}
