@@ -9,15 +9,14 @@ class Usuarios extends CI_Controller
     $c = $this->uri->segment(2);
     $m = $this->uri->segment(3);
 
-    if ($d != 'portal' || $c != 'usuarios' || $m != 'login')
+    if ($d != 'portal' || $c != 'usuarios' || $m != 'login' && $m != 'alta')
     {
-      if (!$this->Usuario->logueado())
+     	if (!$this->Usuario->logueado())
       {
         redirect('/portal/usuarios/login');
       }
     }
   }
-  
 
   function logout()
   {
@@ -105,7 +104,7 @@ class Usuarios extends CI_Controller
     $data['columna'] = $columna;
     $data['criterio'] = $criterio;
     
-    $this->template->load('comunes/plantilla', '/admin/usuarios/index', $data);
+    $this->template->load('comunes/plantilla', '/usuarios/index', $data);
   }
 
   function _usuario_unico($valor, $id)
@@ -121,26 +120,7 @@ class Usuarios extends CI_Controller
       return FALSE;
     }
   }
-  function borrar($id = null)
-  {
-    if ($id == null) redirect("portal/usuarios/index");
-    
-    $data['id'] = $id;
-    $this->template->load('comunes/plantilla', 'admin/usuarios/borrar', $data);
-  }
-  
-  function hacer_borrado()
-  {
-    $id = $this->input->post('id');
-    
-    if ($id != FALSE)
-    {
-      $this->Usuario->borrar($id);
-    }
-    
-    redirect('portal/usuarios/index');
-  }
-  
+ 
   function alta()
   {
     $reglas = array(
@@ -170,7 +150,7 @@ class Usuarios extends CI_Controller
     
     if ($this->form_validation->run() == FALSE)
     {
-      $this->template->load('comunes/plantilla', 'admin/usuarios/alta');
+      $this->template->load('comunes/plantilla', '/usuarios/alta');
     }
     else
     {
@@ -181,49 +161,6 @@ class Usuarios extends CI_Controller
       redirect('portal/usuarios/index');
     }
   }
-  function editar($id)
-  {
-    $reglas = array(
-      array(
-        'field' => 'usuario',
-        'label' => 'Nombre',
-        'rules' => "trim|required|max_length[15]|callback__usuario_unico[$id]"
-      ),
-      array(
-        'field' => 'password',
-        'label' => 'Contraseña',
-        'rules' => 'trim|matches[password_confirm]'
-      ),
-      array(
-        'field' => 'password_confirm',
-        'label' => 'Confirmar contraseña',
-        'rules' => 'trim'
-      ),
-      array(
-        'field' => 'email',
-        'label' => 'Correo',
-        'rules' => 'trim|max_length[75]|valid_email'
-      )
-    );
-
-    $this->form_validation->set_rules($reglas);
-    
-    if ($this->form_validation->run() == FALSE)
-    {
-      $data['id'] = $id;
-      $data['fila'] = $this->Usuario->obtener($id);
-      $this->template->load('comunes/plantilla', 'admin/usuarios/editar', $data);
-    }
-    else
-    {
-      $usuario = $this->input->post('usuario');
-      $email = $this->input->post('email');
-      $password = $this->input->post('password');
-
-      $this->Usuario->editar($usuario, $email, $password, $id);
-      
-      redirect('portal/usuarios/index');      
-    }
-  }
+  
 }
 

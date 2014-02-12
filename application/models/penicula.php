@@ -41,7 +41,6 @@ class Penicula extends CI_Model
     return $res->result_array();
   }
 
-
   function alta($data)
   {
     $res = $this->db->query("insert into peniculas (titulo, ano, duracion,sinopsis,estreno,dvd)
@@ -49,7 +48,7 @@ class Penicula extends CI_Model
                              array($data['titulo'], $data['ano'],$data['duracion'],$data['sinopsis'],
                               $data['estreno'],$data['dvd']));
   }
-
+  
   function editar($data)
   {
     $res = $this->db->query("update peniculas set titulo = ?,
@@ -79,6 +78,7 @@ class Penicula extends CI_Model
                                           ");
     return $res->result_array();
   }
+
   function obtener_datos($id_penicula)
   {
     $res = $this->db->query("select *, to_char(estreno, 'DD-MM-YYYY') as estreno_format,
@@ -112,15 +112,28 @@ class Penicula extends CI_Model
     return $res->result_array();
   }
   
-  function comentarios($id_penicula)
+  function comentarios($id_penicula, $fpp, $comienzo = 0)
   {
     $res = $this->db->query("select * from comentarios_v 
-                             where id_peniculas = ?", array($id_penicula));
+                             where id_peniculas = ?
+                             order by id
+                             limit $fpp
+                             offset $comienzo", array($id_penicula));
     
     return $res->result_array();
   }
+
+  
+  function numero_comentarios($id_penicula)
+  {
+    $res = $this->db->query("select count(*) from comentarios_v
+                                    where id_peniculas = ?", array($id_penicula));
+  }
+  
+
   function borrar($id_penicula)
   {
     $this->db->query("delete from peniculas where id = ?", array($id_penicula));
   }
+
 }

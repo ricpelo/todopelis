@@ -4,7 +4,7 @@
 
 <?= anchor("/admin/peniculas/index", 'Gestionar Peniculas') ?>
 <br />
-<?= anchor("/portal/usuarios/index", 'Gestionar Usuarios') ?>
+<?= anchor("/admin/usuarios/indexGestion", 'Gestionar Usuarios') ?>
 <br />
 <?= anchor("/admin/personas/index", 'Gestionar Personas') ?>
 <br />

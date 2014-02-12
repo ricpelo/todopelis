@@ -8,3 +8,7 @@
 	  <p><?= $comentario['critica'] ?></p>
 	</div>
 <?php endforeach ?>
+
+<?= paginado_comentarios($penicula['id_penicula'],
+                         $penicula['pag'], 
+                         $penicula['npags']) ?>
