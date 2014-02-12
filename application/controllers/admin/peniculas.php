@@ -36,8 +36,7 @@ class Peniculas extends CI_Controller
     
     $data['filas'] = $res;
     $data['nombre'] = $nombre;
-    
-    $this->load->view('admin/peniculas/index', $data);
+    $this->template->load('comunes/plantilla', 'admin/peniculas/index', $data);
   }
 
   function alta()

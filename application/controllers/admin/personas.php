@@ -49,9 +49,7 @@ class Personas extends CI_Controller
     $data['pag'] = $pag;
     $data['npags'] = $npags;
     $data['vista'] = 'personas';
-
-    $this->load->view('admin/personas/index', $data);  
-
+    $this->template->load('comunes/plantilla', 'admin/personas/index', $data);
   }
   
   function alta()
