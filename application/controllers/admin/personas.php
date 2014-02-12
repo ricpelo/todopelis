@@ -2,12 +2,10 @@
 
 class Personas extends CI_Controller
 {
-  var $FPP = 2;
+  var $FPP = 10;
   
   function index($pag = 1)
-  {
-    $this->load->model('Persona');
-    
+  {    
     $criterio = trim(strtolower($this->input->post('criterio')));
 
     if ($criterio == FALSE){
@@ -19,6 +17,11 @@ class Personas extends CI_Controller
       $res = $this->Persona->todos("true",array(),$this->FPP,($pag - 1) * $this->FPP);
     }
     else{
+      $where = "nombre like '%' || ? || '%'";
+      $nfilas = $this->Persona->num_filas($where,array($criterio));
+      $npags = ceil($nfilas/$this->FPP);
+      if ($pag > $npags) redirect("/admin/personas/index/1");
+
       $res = $this->Persona->por_nombre($criterio);
     }
     
@@ -26,6 +29,7 @@ class Personas extends CI_Controller
     $data['criterio'] = $criterio;
     $data['pag'] = $pag;
     $data['npags'] = $npags;
+    $data['vista'] = 'personas';
 
     $this->load->view('admin/personas/index', $data);  
 
