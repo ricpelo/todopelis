@@ -65,5 +65,20 @@ class Generos extends CI_Controller
     }
     
   }
+
+  function alta($genero = '')
+  {
+    $genero = trim($this->input->post('nombre'));
+
+    if ($genero == FALSE || $genero == '')
+    {
+      $data['genero'] = '';
+      $this->load->view("generos/alta",$data);
+    }
+    else
+    {
+      $this->Genero->alta($genero);
+    }
+  }
 }
 
