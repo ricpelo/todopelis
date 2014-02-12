@@ -1,6 +1,6 @@
 <h2>Lista de usuarios</h2>
 
-<?= form_open("/usuarios/index") ?>
+<?= form_open("portal/usuarios/index") ?>
   <?= form_label('Columna:', 'columna') ?>
   <?= form_dropdown('columna', $opciones, $columna) ?>
   <?= form_input('criterio', $criterio) ?>

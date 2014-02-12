@@ -1,3 +1,4 @@
+
 <h2>Proximos estrenos en cine</h2>
 <div>
   <?php foreach ($peniculas as $penicula): ?>

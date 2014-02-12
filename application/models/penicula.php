@@ -41,7 +41,6 @@ class Penicula extends CI_Model
     return $res->result_array();
   }
 
-
   function alta($data)
   {
     $res = $this->db->query("insert into peniculas (titulo, ano, duracion,sinopsis,cartel,estreno,dvd)
@@ -49,7 +48,7 @@ class Penicula extends CI_Model
                              array($data['titulo'], $data['ano'],$data['duracion'],$data['sinopsis'],
                               $data['cartel'],$data['estreno'],$data['dvd']));
   }
-
+  
   function editar($data)
   {
     $res = $this->db->query("update peniculas set titulo = ?,
@@ -73,6 +72,7 @@ class Penicula extends CI_Model
                                           ");
     return $res->result_array();
   }
+
   function obtener_datos($id_penicula)
   {
     $res = $this->db->query("select *, to_char(estreno, 'DD-MM-YYYY') as estreno_format,

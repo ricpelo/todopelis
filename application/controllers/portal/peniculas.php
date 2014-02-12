@@ -36,6 +36,13 @@ class Peniculas extends CI_Controller
   
   function estrenos_dvd()
   {
+    $data['dvds'] = $this->Penicula->estrenos_dvd();
+    return $this->load->view("portada/estrenos_dvd", $data, TRUE);
+  }
+  
+  
+  function ficha_de($id_penicula = null)
+  {
     $data['peniculas'] = $this->Penicula->estrenos_dvd();
     $this->load->view("portada/estrenos_dvd", $data);
   }
