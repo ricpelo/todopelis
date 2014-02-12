@@ -9,7 +9,7 @@ class Usuarios extends CI_Controller
     $c = $this->uri->segment(2);
     $m = $this->uri->segment(3);
 
-    if ($d != 'portal' || $c != 'usuarios' || $m != 'login')
+    if ($d != 'portal' || $c != 'usuarios' || $m != 'login' && $m != 'alta')
     {
      	if (!$this->Usuario->logueado())
       {
