@@ -60,4 +60,11 @@ class Persona extends CI_Model
                            set nombre = ?, ano = ?
                          where id = ?", array($nombre, $ano, $id));
   }
+
+  function participa($id){
+    $res = $this->db->query("select * from participado
+                         where id_personas = ?", array($id));
+    return $res->result_array();
+  }
+
 }
