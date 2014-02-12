@@ -18,6 +18,13 @@
   <hr/>
   <?= $contents ?>
   <hr />
-  <?= anchor("/portal", 'Inicio') ?>
+  <?= anchor("/portal", 'Inicio'); 
+  if($this->Usuario->logueado()){
+    if($this->Usuario->admin())
+    {
+      echo " ".anchor("/admin/usuarios", 'Menu Principal');
+    }
+  }
+  ?>
 </body>
 </html>

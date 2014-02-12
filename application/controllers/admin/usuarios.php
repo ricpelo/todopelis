@@ -22,6 +22,6 @@ class Usuarios extends CI_Controller
   }
   public function index()
   {
-    $this->load->view('admin/index');
+    $this->template->load('comunes/plantilla', 'admin/index');
   }
 }
