@@ -52,6 +52,12 @@ class Genero extends CI_Model
                              set nombre = ?
                              where id = ?", array($nombre, $id));
   }
+
+  function alta($nombre)
+  {
+    $res = $this->db->query("insert into generos (nombre)
+                             values(?)",array($nombre));
+  }
 }
 
 
