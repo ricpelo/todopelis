@@ -20,5 +20,5 @@
     <?php endforeach ?>
   </tbody>
 </table>
-<?= anchor("/portal/usuarios/alta", 'Insertar un nuevo usuario') ?>
+
 
