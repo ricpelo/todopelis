@@ -30,4 +30,3 @@ function paginado($pag, $npags)
   return $ret;
   
 }
-

@@ -5,6 +5,9 @@
  */
 class Peniculas extends CI_Controller 
 {
+  
+  var $FPP = 2;
+  
   function index()
   {
     $data['peniculas'] = $this->Penicula->cartelera();
@@ -33,6 +36,13 @@ class Peniculas extends CI_Controller
   
   function estrenos_dvd()
   {
+    $data['dvds'] = $this->Penicula->estrenos_dvd();
+    return $this->load->view("portada/estrenos_dvd", $data, TRUE);
+  }
+  
+  
+  function ficha_de($id_penicula = null)
+  {
     $data['peniculas'] = $this->Penicula->estrenos_dvd();
     $this->load->view("portada/estrenos_dvd", $data);
   }
@@ -59,14 +69,22 @@ class Peniculas extends CI_Controller
     }
   }
   
-  function comentarios($id_penicula = null)
+  function comentarios($id_penicula = null, $pag = 1)
   {
     try
     {
       if ($id_penicula == null) throw new Exception("Película incorrecta");
 
-      $data['comentarios'] = $this->Penicula->comentarios($id_penicula);
+      $nfilas = $this->Penicula->numero_comentarios($id_penicula);
+      $npags = ceil($nfilas / $this->FPP);
+     // if ($pag > $npags) redirect("portal/peniculas/comentarios/{$id_penicula}");
+
+      $data['comentarios'] = $this->Penicula->comentarios($id_penicula, 
+                                                          $this->FPP, 
+                                                          ($pag - 1) * $this->FPP);
       $data['penicula'] = $id_penicula;
+      $data['pag'] = $pag;
+      $data['npags'] = $npags;
       
       $this->load->view('peniculas/comentarios', $data);
     }
