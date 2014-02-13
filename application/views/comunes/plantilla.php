@@ -7,6 +7,7 @@
 </head>
 <body>
 	<h1>Todopelis</h1>
+  <?= $info ?>
   <?= form_open("/portal/usuarios/logout") ?>
     <?php if (get_instance()->Usuario->logueado()): ?>
       <p align="right">Usuario: <?= usuario_logueado() ?>
