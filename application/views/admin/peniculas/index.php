@@ -1,5 +1,7 @@
 <h2>Lista de peniculas</h2>
-
+<?= $cartel ?>
+<?= $alta ?>
+<?= $borrar?>
 <?= form_open("/admin/peniculas/index") ?>
   <p align="center"><?= form_label('Busqueda:', 'buscar') ?>
   

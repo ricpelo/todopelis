@@ -3,7 +3,7 @@
   <h2 id="titulo"><?= $datos["titulo"] ?></h2>
   
   <nav id="menu_ficha">
-    <?= anchor("/portal/peniculas/comentarios/{$datos['id']}", "Comentarios") ?>
+    <?= anchor("/portal/comentarios/index/{$datos['id']}", "Comentarios") ?>
   </nav>
   
   <section id="cuerpo_ficha">

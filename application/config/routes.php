@@ -38,6 +38,7 @@
 |
 */
 
+$route['portal/comentarios/(:num)'] = 'portal/comentarios/comentarios/$1';
 $route['portal/peniculas/(:num)'] = 'portal/peniculas/ficha/$1';
 $route['portal/personas/(:num)'] = 'portal/personas/ficha/$1';
 $route['default_controller'] = "portal/peniculas";

@@ -28,11 +28,14 @@ class Usuario extends CI_Model
   }
   function admin(){
 
-    $id = $this->session->userdata('id_login');
+    $id = 0;
+    if ($this->session->userdata('id_login') != '')
+    { 
+      $id = $this->session->userdata('id_login');
+    };
 
     $res = $this->db->query("select id
-                               from admin where id_usuarios =  $id
-                             ");
+                               from admin where id_usuarios =  $id");
 
     return $res->num_rows() > 0;
 
