@@ -33,7 +33,7 @@ class Generos extends CI_Controller
       $data['generos'] = $this->Genero->buscar($genero);
     }
     $data['nombre'] = $genero; 
-    $this->load->view('generos/ver_generos', $data);
+    $this->template->load('comunes/plantilla', 'generos/ver_generos', $data);
   }
   
   function borrar($id)
@@ -78,7 +78,10 @@ class Generos extends CI_Controller
     else
     {
       $this->Genero->alta($genero);
+
+      redirect("/admin/generos/index"); 
     }
+
   }
 }
 

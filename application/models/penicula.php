@@ -43,10 +43,10 @@ class Penicula extends CI_Model
 
   function alta($data)
   {
-    $res = $this->db->query("insert into peniculas (titulo, ano, duracion,sinopsis,cartel,estreno,dvd)
-                             values ( ?, ?, ?, ?, ?, ?, ?)",
+    $res = $this->db->query("insert into peniculas (titulo, ano, duracion,sinopsis,estreno,dvd)
+                             values ( ?, ?, ?, ?, ?, ?)",
                              array($data['titulo'], $data['ano'],$data['duracion'],$data['sinopsis'],
-                              $data['cartel'],$data['estreno'],$data['dvd']));
+                              $data['estreno'],$data['dvd']));
   }
   
   function editar($data)
@@ -55,11 +55,17 @@ class Penicula extends CI_Model
                                                   ano = ?,
                                                   duracion = ?,
                                                   sinopsis = ?,
-                                                  cartel = ?,
                                                   estreno = ?,
                                                   dvd = ? where id = ?",
                               array($data['titulo'], $data['ano'],$data['duracion'],$data['sinopsis'],
-                              $data['cartel'],$data['estreno'],$data['dvd'], $data['id']));
+                              $data['estreno'],$data['dvd'], $data['id']));
+  }
+
+  function cartel($data)
+  {
+    $res = $this->db->query("update peniculas set cartel = ?
+                                                  where id = ?",
+                                                  array('uploads/carteles/'.$data['url'],$data['id']));
   }
 
   

@@ -66,7 +66,7 @@ class Peniculas extends CI_Controller
       $data['generos'] = $this->Genero->obtener_generos($id_penicula);
       $data['paises'] = $this->Penicula->obtener_paises($id_penicula);
       
-      $this->load->view('peniculas/ficha', $data);
+      $this->template->load('comunes/plantilla', 'peniculas/ficha', $data);
     }
     catch (Exception $e)
     {
