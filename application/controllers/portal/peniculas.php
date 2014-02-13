@@ -10,6 +10,12 @@ class Peniculas extends CI_Controller
   
   function index()
   {
+
+    if ($this->session->flashdata('info')){
+      $data['info'] = $this->session->flashdata('info');
+    }else{
+      $data['info']='';
+    }
     $data['peniculas'] = $this->Penicula->cartelera();
     $res = $this->load->view("portada/cartelera", $data, TRUE);
     
@@ -20,6 +26,7 @@ class Peniculas extends CI_Controller
     $res .= $this->load->view("portada/estrenos_dvd", $data, TRUE);
         
     $this->load->view('comunes/plantilla', array('contents' => $res));
+
   }
   
   function estrenos_cine()

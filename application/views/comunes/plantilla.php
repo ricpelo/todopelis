@@ -7,12 +7,14 @@
 </head>
 <body>
 	<h1>Todopelis</h1>
+
     <?php
       $imagen = array('src' => "/uploads/todopelisBueno.jpeg", 'height' => '140', 'width' => '400'); 
     ?><!--by ibañez xD -->
     <?= img($imagen); ?>
   
    <?= form_open("/portal/usuarios/logout") ?>
+
     <?php if (get_instance()->Usuario->logueado()): ?>
       <p align="right">Usuario: <?= usuario_logueado() ?>
       <?= form_submit('logout', 'Logout') ?></p>
