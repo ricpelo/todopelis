@@ -1,5 +1,5 @@
 <?= validation_errors() ?>
-<?= form_open("portal/usuarios/editar/$id") ?>
+<?= form_open("admin/usuarios/editar/$id") ?>
   <?= form_label('Nombre:', 'usuario') ?>
   <?= form_input('usuario', set_value('usuario', $fila['usuario'])) ?><br/>
   <?= form_label('Correo:', 'email') ?>
@@ -9,6 +9,6 @@
   <?= form_label('Confirmar contraseña:', 'password_confirm') ?>
   <?= form_password('password_confirm') ?><br/>
   <?= form_submit('editar', 'Editar') ?>
-  <?= anchor("portal/usuarios/index", 'Volver') ?>
+  <?= anchor("admin/usuarios/index", 'Volver') ?>
 <?= form_close() ?>
 

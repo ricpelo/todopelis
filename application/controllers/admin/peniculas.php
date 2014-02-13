@@ -3,6 +3,24 @@
 class Peniculas extends CI_Controller
 {
   
+  function __construct()
+  {
+    parent::__construct();
+    $d = $this->uri->segment(1);
+
+    if ($d == 'admin')
+    {
+      if (!$this->Usuario->logueado())
+      {
+        redirect('/portal/usuarios/login');
+      }
+      if(!$this->Usuario->admin())
+      {
+        redirect('/portal');
+      }
+    }
+  
+  }
   function index()
   {
     $nombre = trim($this->input->post('nombre'));
@@ -18,8 +36,7 @@ class Peniculas extends CI_Controller
     
     $data['filas'] = $res;
     $data['nombre'] = $nombre;
-    
-    $this->load->view('admin/peniculas/index', $data);
+    $this->template->load('comunes/plantilla', 'admin/peniculas/index', $data);
   }
 
   function alta()
@@ -49,11 +66,6 @@ class Peniculas extends CI_Controller
         'label' => 'Sinopsis',
         'rules' => 'trim'
       ),
-      array(
-        'field' => 'cartel',
-        'label' => 'Cartel',
-        'rules' => 'trim'
-      ),
        array(
         'field' => 'estreno',
         'label' => 'Estreno',
@@ -81,7 +93,6 @@ class Peniculas extends CI_Controller
       $data['ano'] =  ($this->input->post('ano') != '') ? $this->input->post('ano'): null;
       $data['duracion'] = ($this->input->post('duracion') != '') ? $this->input->post('duracion'): null;
       $data['sinopsis'] = ($this->input->post('sinopsis') != '') ? $this->input->post('sinopsis'): null;
-      $data['cartel'] = ($this->input->post('cartel') != '') ? $this->input->post('cartel'): null;
       $data['estreno'] = ($this->input->post('estreno') != '') ? $this->input->post('estreno'): null;
       $data['alta'] = ($this->input->post('alta') != '') ? $this->input->post('alta'): null;
       $data['dvd'] = ($this->input->post('dvd') != '') ? $this->input->post('dvd'): null;
@@ -158,11 +169,7 @@ class Peniculas extends CI_Controller
         'label' => 'Sinopsis',
         'rules' => 'trim'
       ),
-      array(
-        'field' => 'cartel',
-        'label' => 'Cartel',
-        'rules' => 'trim'
-      ),
+     
        array(
         'field' => 'estreno',
         'label' => 'Estreno',
@@ -191,7 +198,6 @@ class Peniculas extends CI_Controller
       $data['ano'] =  ($this->input->post('ano') != '') ? $this->input->post('ano'): null;
       $data['duracion'] = ($this->input->post('duracion') != '') ? $this->input->post('duracion'): null;
       $data['sinopsis'] = ($this->input->post('sinopsis') != '') ? $this->input->post('sinopsis'): null;
-      $data['cartel'] = ($this->input->post('cartel') != '') ? $this->input->post('cartel'): null;
       $data['estreno'] = ($this->input->post('estreno') != '') ? $this->input->post('estreno'): null;
       $data['alta'] = ($this->input->post('alta') != '') ? $this->input->post('alta'): null;
       $data['dvd'] = ($this->input->post('dvd') != '') ? $this->input->post('dvd'): null;
@@ -221,6 +227,87 @@ class Peniculas extends CI_Controller
     
     redirect('admin/peniculas/index');
   }
-  
+
+  function subir_cartel($id = null)
+  {
+  	 
+      if ($id != null)
+      {
+        $config['upload_path'] = './uploads/carteles';
+          $config['allowed_types'] = 'gif|jpg|png';
+          $config['max_size'] = '100';
+          $config['max_width'] = '1024';
+          $config['max_height'] = '768';
+          $this->load->library('upload', $config);
+
+          if (!$this->upload->do_upload())
+          {
+            $data['error'] = $this->upload->display_errors();
+            $data['id'] = $id;
+            $this->load->view('admin/peniculas/cartel', $data);
+            
+          }
+          else
+          {
+            $datos = $this->upload->data();
+
+            //var_dump($datos);
+            $file = $datos['file_name'];
+
+            $data = array('id' => $id, 'url' => $file);
+            
+            $this->Penicula->cartel($data);
+           
+          }
+      }
+      else
+        echo 'no id';
+
+
+          
+    
+    }
 }
+
+
+
+  	
+
+
+
+
+
+
+
+
+
+
+    /*$reglas = array(
+      array(
+        'field' => 'cartel',
+        'label' => 'Cartel',
+        'rules' => 'trim'
+     
+      )      
+    );
+
+    $this->form_validation->set_rules($reglas);
+    $data['id'] = $id;
+
+    if ($this->form_validation->run() == FALSE)
+    {
+     
+      $this->load->view('admin/peniculas/cartel');
+    }
+    else
+    {
+      
+      $cartel = ($this->input->post('cartel') != '') ? $this->input->post('cartel'): null;
+
+      $this->Penicula->editar($cartel);
+  	$this->load->view('admin/peniculas/index');
+  */
+  
+
+
 

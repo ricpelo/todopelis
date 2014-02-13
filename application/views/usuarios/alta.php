@@ -1,5 +1,5 @@
 <?= validation_errors() ?>
-<?= form_open('/usuarios/alta') ?>
+<?= form_open('portal/usuarios/alta') ?>
   <?= form_label('Nombre: ', 'nombre') ?>
   <?= form_input('nombre', set_value('nombre')) ?><br/>
   <?= form_label('Correo: ', 'email') ?>

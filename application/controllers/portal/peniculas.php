@@ -9,6 +9,12 @@ class Peniculas extends CI_Controller
   
   function index()
   {
+
+    if ($this->session->flashdata('info')){
+      $data['info'] = $this->session->flashdata('info');
+    }else{
+      $data['info']='';
+    }
     $data['peniculas'] = $this->Penicula->cartelera();
     $res = $this->load->view("portada/cartelera", $data, TRUE);
     
@@ -19,6 +25,7 @@ class Peniculas extends CI_Controller
     $res .= $this->load->view("portada/estrenos_dvd", $data, TRUE);
         
     $this->load->view('comunes/plantilla', array('contents' => $res));
+
   }
   
   function estrenos_cine()
@@ -34,6 +41,13 @@ class Peniculas extends CI_Controller
   }
   
   function estrenos_dvd()
+  {
+    $data['dvds'] = $this->Penicula->estrenos_dvd();
+    return $this->load->view("portada/estrenos_dvd", $data, TRUE);
+  }
+  
+  
+  function ficha_de($id_penicula = null)
   {
     $data['peniculas'] = $this->Penicula->estrenos_dvd();
     $this->load->view("portada/estrenos_dvd", $data);
@@ -51,7 +65,7 @@ class Peniculas extends CI_Controller
       $data['generos'] = $this->Genero->obtener_generos($id_penicula);
       $data['paises'] = $this->Penicula->obtener_paises($id_penicula);
       
-      $this->load->view('peniculas/ficha', $data);
+      $this->template->load('comunes/plantilla', 'peniculas/ficha', $data);
     }
     catch (Exception $e)
     {

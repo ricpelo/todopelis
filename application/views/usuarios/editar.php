@@ -1,5 +1,5 @@
 <?= validation_errors() ?>
-<?= form_open("/usuarios/editar/$id") ?>
+<?= form_open("portal/usuarios/editar/$id") ?>
   <?= form_label('Nombre:', 'usuario') ?>
   <?= form_input('usuario', set_value('usuario', $fila['usuario'])) ?><br/>
   <?= form_label('Correo:', 'email') ?>
