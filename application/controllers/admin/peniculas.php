@@ -33,10 +33,35 @@ class Peniculas extends CI_Controller
     {
       $res = $this->Penicula->buscar($nombre);
     }
-    
+    if($this->session->flashdata('cartel'))
+    {
+    	$data['cartel'] = $this->session->flashdata('cartel');
+    }
+    else
+    {
+    	$data['cartel'] = '';
+    }
+    if($this->session->flashdata('alta'))
+    {
+    	$data['alta'] = $this->session->flashdata('alta');
+    }
+    else
+    {
+    	$data['alta'] = '';
+    }
+    if($this->session->flashdata('borrar'))
+    {
+    	$data['borrar'] = $this->session->flashdata('borrar');
+    }
+    else
+    {
+    	$data['borrar'] = '';
+    }
     $data['filas'] = $res;
     $data['nombre'] = $nombre;
     $this->template->load('comunes/plantilla', 'admin/peniculas/index', $data);
+    
+ 
   }
 
   function alta()
@@ -100,6 +125,7 @@ class Peniculas extends CI_Controller
       
       
       $this->Penicula->alta($data);
+      $this->session->set_flashdata('alta','Penicula <b>'.$data['titulo'].'</b> insertada correctamente');
       redirect('admin/peniculas/index');
     }
   }
@@ -219,12 +245,15 @@ class Peniculas extends CI_Controller
   function hacer_borrado()
   {
     $id = $this->input->post('id');
-    
+    $penicula = $this->Penicula->obtener_datos($id);
+    $titulo = $penicula['titulo'];
+
     if ($id != FALSE)
     {
       $this->Penicula->borrar($id);
     }
     
+    $this->session->set_flashdata('borrar','La penicula <b>'.$titulo.'</b> se ha borrado correctamente');
     redirect('admin/peniculas/index');
   }
 
@@ -250,21 +279,21 @@ class Peniculas extends CI_Controller
           else
           {
             $datos = $this->upload->data();
-
-            //var_dump($datos);
             $file = $datos['file_name'];
-
             $data = array('id' => $id, 'url' => $file);
-            
+            $penicula = $this->Penicula->obtener_datos($id);           
             $this->Penicula->cartel($data);
+            $this->session->set_flashdata('cartel', 'Cambiado el cartel de la pelicula <b>'.$penicula['titulo'].'</b>');
+            redirect("admin/peniculas/index");
            
           }
       }
       else
-        echo 'no id';
-
-
-          
+      {
+      	echo 'falta el id'; 
+        redirect('admin/peniculas/index');
+      }
+                 
     
     }
 }
