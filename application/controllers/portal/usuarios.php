@@ -41,6 +41,8 @@ class Usuarios extends CI_Controller
       ),
     );
     
+
+
     $this->form_validation->set_rules($reglas);
     
     if ($this->form_validation->run() == FALSE)
@@ -55,8 +57,10 @@ class Usuarios extends CI_Controller
       if ($this->Usuario->admin($id)){
         redirect('/admin/usuarios/index');
       }
-        else{
-      redirect('/portal');}
+      else
+      {
+      redirect('/portal');
+      }
     }
   }
   
@@ -104,6 +108,15 @@ class Usuarios extends CI_Controller
     $data['columna'] = $columna;
     $data['criterio'] = $criterio;
     
+    if ($this->session->flashdata('info'))
+    {
+      $data['info'] = $this->session->flashdata('info');
+    }
+    else
+    {
+      $data['info'] = '';
+    }
+
     $this->template->load('comunes/plantilla', '/usuarios/index', $data);
   }
 
@@ -158,7 +171,13 @@ class Usuarios extends CI_Controller
       $email = $this->input->post('email');
       $password = $this->input->post('password');
       $this->Usuario->alta($nombre, $password, $email);
-      redirect('portal/usuarios/index');
+      $this->session->set_flashdata('info', 'Usuario creado correctamente');
+      if(!$this->Usuario->admin()){
+      redirect('portal');
+      }
+      else{
+        redirect('admin/usuarios/indexGestion');
+      }
     }
   }
   
