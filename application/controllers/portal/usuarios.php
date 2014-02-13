@@ -137,7 +137,7 @@ class Usuarios extends CI_Controller
   function alta()
   {
 
-    if (!$this->Usuario->logueado()){
+    if (!$this->Usuario->logueado() || $this->Usuario->admin()){
       $reglas = array(
         array(
           'field' => 'nombre',
