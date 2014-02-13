@@ -1,3 +1,4 @@
+<?= $info ?>
 <h2>Cartelera España</h2>
 <div>
   <?php foreach ($peniculas as $penicula): ?>

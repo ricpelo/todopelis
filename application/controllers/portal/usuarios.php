@@ -165,7 +165,7 @@ class Usuarios extends CI_Controller
       
       if ($this->form_validation->run() == FALSE)
       {
-        $this->template->load('comunes/plantilla', 'admin/usuarios/alta');
+        $this->template->load('comunes/plantilla', 'usuarios/alta');
       }
       else
       {
@@ -173,7 +173,8 @@ class Usuarios extends CI_Controller
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         $this->Usuario->alta($nombre, $password, $email);
-        redirect('portal/usuarios/index');
+        $this->session->set_flashdata('info', 'Creado correctamente, puede loguearse.');
+        redirect('portal');
       }
     }else{
       $this->session->set_flashdata('info', 'Acceso denegado');
