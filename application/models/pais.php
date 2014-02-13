@@ -16,10 +16,11 @@ class Pais extends CI_Model
     return $res->result_array();
   }
 
-  function num_filas()
+  function num_filas($where = "true", $valores = array())
   {
     $res = $this->db->query("select count(*) as total
-                               from paises");
+                               from paises
+                               where $where", $valores);
     $res = $res->row_array();
     return $res['total'];
   }

@@ -12,12 +12,18 @@
       <p align="right">Usuario: <?= usuario_logueado() ?>
       <?= form_submit('logout', 'Logout') ?></p>
     <?php else: ?>
-      <p align="right"><?= form_submit('logout', 'Login') ?></p>
+      <p align = "right">¿No tienes cuenta? <?= anchor("/portal/usuarios/alta", "Registrate") ?></p>
+      <p align="right"><?= form_submit('login', 'Login') ?></p>
     <?php endif ?>   
   <?= form_close() ?>
   <hr/>
   <?= $contents ?>
   <hr />
-  <?= anchor("/portal", 'Inicio') ?>
+  <?= anchor("/portal", 'Inicio'); ?> 
+  <?php if($this->Usuario->logueado()): ?>
+    <?php if($this->Usuario->admin()): ?>
+      <?= anchor("/admin/usuarios", 'Menu Principal');?>
+    <?php endif ?>
+  <?php endif ?>
 </body>
 </html>
