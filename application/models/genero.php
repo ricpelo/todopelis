@@ -57,8 +57,8 @@ class Genero extends CI_Model
     $res = $this->db->query("select * from generos 
                             where nombre = ?", array($nombre));
     
-    return $res_>num_rows() > 0;
-
+    return $res->num_rows() > 0;
+  }
 
   function alta($nombre)
   {

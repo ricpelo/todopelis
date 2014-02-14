@@ -24,7 +24,7 @@ class Generos extends CI_Controller
   {
     $genero = trim($this->input->post('nombre'));
 
-    if ($genero != '')
+    if ($genero == '')
     {
       $data['generos'] = $this->Genero->todos();  
     }
@@ -32,9 +32,9 @@ class Generos extends CI_Controller
     {
       $data['generos'] = $this->Genero->buscar($genero);
     }
-    if ($this->session->flashdata($info))
+    if ($this->session->flashdata('info'))
     {
-      $data['info'] = $this->session->flashdata($info);
+      $data['info'] = $this->session->flashdata('info');
     }
     else
     {
@@ -58,11 +58,13 @@ class Generos extends CI_Controller
   
   function modificar($id)
   {
+    $genero = $this->Genero->obtener($id);
+    $nombre = $genero['nombre'];
     $reglas = array(
       array(
         'field' => 'nombre',
         'label' => 'Nombre',
-        'rules' => 'trim|required|max_length[50]callback__generos_existe($nombre)'
+        'rules' => "trim|required|max_length[50]|callback__generos_existe[$nombre]"
       ),
     );
     
@@ -70,7 +72,7 @@ class Generos extends CI_Controller
     
     if ($this->form_validation->run() == FALSE)
     {
-      $data['genero'] = $this->Genero->obtener($id);
+      $data['nombre'] = $nombre;
       $data['id'] = $id;
       $this->load->view("generos/modificar", $data);  
     }
@@ -86,7 +88,7 @@ class Generos extends CI_Controller
   
   function _genero_existe($nombre)
   {
-    if (!$this->Genero->existe($nombre))
+    if ($this->Genero->existe($nombre))
     {
       $this->form_validation->set_message('_genero_existe',
                                           'El genero ya existe');
