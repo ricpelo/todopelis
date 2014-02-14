@@ -1,6 +1,7 @@
 <h2>Lista de usuarios</h2>
+<?= $info ?>
 
-<?= form_open("/portal/usuarios/index") ?>
+<?= form_open("/admin/usuarios/index") ?>
   <?= form_label('Columna:', 'columna') ?>
   <?= form_dropdown('columna', $opciones, $columna) ?>
   <?= form_input('criterio', $criterio) ?>
@@ -16,8 +17,8 @@
       <tr>
         <td><?= $fila['usuario'] ?></td>
         <td><?= $fila['email'] ?></td>
-        <td><?= anchor("/portal/usuarios/editar/{$fila['id']}", 'Editar') ?></td>
-        <td><?= anchor("/portal/usuarios/borrar/{$fila['id']}", 'Borrar') ?></td>
+        <td><?= anchor("/admin/usuarios/editar/{$fila['id']}", 'Editar') ?></td>
+        <td><?= anchor("/admin/usuarios/borrar/{$fila['id']}", 'Borrar') ?></td>
       </tr>
     <?php endforeach ?>
   </tbody>

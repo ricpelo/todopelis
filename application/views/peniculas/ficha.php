@@ -3,7 +3,7 @@
   <h2 id="titulo"><?= $datos["titulo"] ?></h2>
   
   <nav id="menu_ficha">
-    <?= anchor("/portal/peniculas/comentarios/{$datos['id']}", "Comentarios") ?>
+    <?= anchor("/portal/comentarios/index/{$datos['id']}", "Comentarios") ?>
   </nav>
   
   <section id="cuerpo_ficha">
@@ -39,7 +39,7 @@
       <div class="dato_fila">
         <?php foreach ($directores as $director): ?>
           <span class="nombre_director">
-            <?= anchor("/portal/personas/ficha/{$director['id_personas']}", $director['nombre']) ?>
+            <?= anchor("/portal/personas/{$director['id_personas']}", $director['nombre']) ?>
           </span>
         <?php endforeach; ?>
       </div>
@@ -50,7 +50,7 @@
       <div class="dato_fila">
         <?php foreach ($reparto as $actor): ?>
           <span class="nombre_actor">
-            <?= anchor("/portal/personas/ficha/{$actor['id_personas']}", $actor['nombre']) ?>
+            <?= anchor("/portal/personas/{$actor['id_personas']}", $actor['nombre']) ?>
           </span>
         <?php endforeach; ?>
       </div>

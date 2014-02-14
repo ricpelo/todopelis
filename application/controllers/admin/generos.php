@@ -2,6 +2,24 @@
 
 class Generos extends CI_Controller
 {
+  function __construct()
+  {
+    parent::__construct();
+    $d = $this->uri->segment(1);
+
+    if ($d == 'admin')
+    {
+      if (!$this->Usuario->logueado())
+      {
+        redirect('/portal/usuarios/login');
+      }
+      if(!$this->Usuario->admin())
+      {
+        redirect('/portal');
+      }
+    }
+  
+  }
   function index()
   {
     $genero = trim($this->input->post('nombre'));
@@ -23,7 +41,7 @@ class Generos extends CI_Controller
       $data['info'] = '';
     }
     $data['nombre'] = $genero; 
-    $this->load->view('generos/ver_generos', $data);
+    $this->template->load('comunes/plantilla', 'generos/ver_generos', $data);
   }
   
   function borrar($id)
@@ -31,11 +49,11 @@ class Generos extends CI_Controller
     if ($id != '')
     {
       $this->Genero->borrar($id);
+      redirect("/admin/generos/index"); 
     }
-    else
-    {
-     redirect("/admin/generos/index"); 
-    }
+
+    redirect("/admin/generos/index"); 
+  
   }
   
   function modificar($id)
@@ -44,7 +62,7 @@ class Generos extends CI_Controller
       array(
         'field' => 'nombre',
         'label' => 'Nombre',
-        'rules' => 'trim|required|max_length[50]'
+        'rules' => 'trim|required|max_length[50]callback__generos_existe($nombre)'
       ),
     );
     
@@ -77,6 +95,35 @@ class Generos extends CI_Controller
     else 
     {
       return TRUE;
+    }
+  }
+
+  function alta($genero = '')
+  {
+    
+    $reglas = array(
+      array(
+        'field' => 'nombre',
+        'label' => 'Nombre',
+        'rules' => 'trim|required|max_length[50]|callback__generos_existe($nombre)'
+      )
+    );
+
+    $this->form_validation->set_rules($reglas);
+
+    if ($this->form_validation->run() == FALSE)
+    {
+
+      $data['genero'] = '';
+      $this->load->view('generos/alta', $data); 
+    }
+    else
+    {
+      $genero = $this->input->post('nombre');
+      $this->Genero->alta($genero);
+      $this->session->set_flashdata('info','se insertó correctamente');
+      redirect("admin/generos/index"); 
+
     }
   }
 }

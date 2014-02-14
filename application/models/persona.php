@@ -17,10 +17,11 @@ class Persona extends CI_Model
     return $res->result_array();
   }
 
-  function num_filas()
+  function num_filas($where = "true", $valores = array())
   {
     $res = $this->db->query("select count(*) as total
-                               from personas");
+                               from personas
+                               where $where", $valores);
     $res = $res->row_array();
     return $res['total'];
   }
@@ -60,4 +61,11 @@ class Persona extends CI_Model
                            set nombre = ?, ano = ?
                          where id = ?", array($nombre, $ano, $id));
   }
+
+  function participa($id){
+    $res = $this->db->query("select * from participado
+                         where id_personas = ?", array($id));
+    return $res->result_array();
+  }
+
 }

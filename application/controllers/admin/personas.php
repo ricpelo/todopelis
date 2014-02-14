@@ -2,12 +2,29 @@
 
 class Personas extends CI_Controller
 {
-  var $FPP = 2;
+  var $FPP = 10;
+
+  function __construct()
+  {
+    parent::__construct();
+    $d = $this->uri->segment(1);
+
+    if ($d == 'admin')
+    {
+      if (!$this->Usuario->logueado())
+      {
+        redirect('/portal/usuarios/login');
+      }
+      if(!$this->Usuario->admin())
+      {
+        redirect('/portal');
+      }
+    }
+  
+  }
   
   function index($pag = 1)
-  {
-    $this->load->model('Persona');
-    
+  {    
     $criterio = trim(strtolower($this->input->post('criterio')));
 
     if ($criterio == FALSE){
@@ -19,6 +36,11 @@ class Personas extends CI_Controller
       $res = $this->Persona->todos("true",array(),$this->FPP,($pag - 1) * $this->FPP);
     }
     else{
+      $where = "nombre like '%' || ? || '%'";
+      $nfilas = $this->Persona->num_filas($where,array($criterio));
+      $npags = ceil($nfilas/$this->FPP);
+      if ($pag > $npags) redirect("/admin/personas/index/1");
+
       $res = $this->Persona->por_nombre($criterio);
     }
     
@@ -26,9 +48,8 @@ class Personas extends CI_Controller
     $data['criterio'] = $criterio;
     $data['pag'] = $pag;
     $data['npags'] = $npags;
-
-    $this->load->view('admin/personas/index', $data);  
-
+    $data['vista'] = 'personas';
+    $this->template->load('comunes/plantilla', 'admin/personas/index', $data);
   }
   
   function alta()
@@ -110,7 +131,7 @@ class Personas extends CI_Controller
       $nombre = $this->input->post('nombre');
       $ano = $this->input->post('ano');
       $this->Persona->editar($id, $nombre, $ano);     
-      redirect('admin/personas/index');
+      //redirect('admin/personas/index');
     }
   }
 }

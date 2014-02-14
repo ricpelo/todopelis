@@ -9,6 +9,8 @@
 	</div>
 <?php endforeach ?>
 
+<br />
+
 <?= paginado_comentarios($penicula['id_penicula'],
-                         $penicula['pag'], 
-                         $penicula['npags']) ?>
+                         $pag, 
+                         $npags) ?>

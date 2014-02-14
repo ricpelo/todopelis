@@ -24,7 +24,7 @@
 	</tbody>
 </table>
 <div style="text-align: center">
-	<?= paginado($pag, $npags)?>
+	<?= paginado($pag, $npags, $vista)?>
 </div>
 
 

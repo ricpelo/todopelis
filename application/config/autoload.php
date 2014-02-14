@@ -66,7 +66,7 @@ $autoload['libraries'] = array('database', 'form_validation', 'session',
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('html','url', 'form','usuarios', 'peniculas_helper');
+$autoload['helper'] = array('html','url', 'form','usuarios', 'comentarios_helper');
 
 
 /*
@@ -111,7 +111,8 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('Penicula','Usuario','Persona','Genero');
+
+$autoload['model'] = array('Penicula','Usuario','Persona','Genero','Comentario', 'Pais');
 
 
 /* End of file autoload.php */

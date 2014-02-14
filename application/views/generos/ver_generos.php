@@ -23,4 +23,4 @@
   </tbody>
 </table>
 
-<p align="center"><?= anchor("admin/genero/alta", 'Insertar un nuevo Genero') ?></p>
+<p align="center"><?= anchor("admin/generos/alta", 'Insertar un nuevo Genero') ?></p>

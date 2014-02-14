@@ -9,18 +9,16 @@
 
 <table border="1" style="margin:auto">
   <thead>
-    <th>Usuario</th><th>e-mail</th><th colspan="2">Acciones</th>
+    <th>Usuario</th><th>e-mail</th>
   </thead>
   <tbody>
     <?php foreach ($filas as $fila): ?>
       <tr>
         <td><?= $fila['usuario'] ?></td>
         <td><?= $fila['email'] ?></td>
-        <td><?= anchor("/usuarios/editar/{$fila['id']}", 'Editar') ?></td>
-        <td><?= anchor("/usuarios/borrar/{$fila['id']}", 'Borrar') ?></td>
       </tr>
     <?php endforeach ?>
   </tbody>
 </table>
-<?= anchor("/usuarios/alta", 'Insertar un nuevo usuario') ?>
+
 
