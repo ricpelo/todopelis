@@ -20,13 +20,12 @@ class Personas extends CI_Controller
       {
         throw new Exception("Pelis vacias");
       }
-      $this->load->view('personas/ficha', $data);
+      $this->template->load('comunes/plantilla', 'personas/ficha', $data);
     }
     catch (Exception $e)
     {
       $data['mensaje'] = $e->getMessage();
-      
-      $this->load->view('comunes/error', $data);
+      $this->template->load('comunes/plantilla', 'comunes/error', $data);
     }
   }
 }
