@@ -41,7 +41,9 @@ class Generos extends CI_Controller
     if ($id != '')
     {
       $this->Genero->borrar($id);
+      redirect("/admin/generos/index"); 
     }
+
     redirect("/admin/generos/index"); 
   
   }
@@ -66,20 +68,31 @@ class Generos extends CI_Controller
 
   function alta($genero = '')
   {
-    $genero = trim($this->input->post('nombre'));
+    
+    $reglas = array(
+      array(
+        'field' => 'nombre',
+        'label' => 'Nombre',
+        'rules' => 'trim|required|max_length[50]|callback__generos__existe($nombre)'
+      )
+    );
 
-    if ($genero == FALSE || $genero == '')
+    $this->form_validation->set_rules($reglas);
+
+    if ($this->form_validation->run() == FALSE)
     {
+
       $data['genero'] = '';
-      $this->load->view("generos/alta",$data);
+      $this->load->view('generos/alta', $data); 
     }
     else
     {
+      $genero = $this->input->post('nombre');
       $this->Genero->alta($genero);
+      $this->session->set_flashdata('info','se insertó correctamente');
+      redirect("admin/generos/index"); 
 
-      redirect("/admin/generos/index"); 
     }
-
   }
 }
 

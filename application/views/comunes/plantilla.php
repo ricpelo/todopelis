@@ -6,10 +6,8 @@
 	<title>Todopelis</title>
 </head>
 <body>
-	<h1>Todopelis</h1>
-
     <?php
-      $imagen = array('src' => "/uploads/todopelisBueno.jpeg", 'height' => '140', 'width' => '400'); 
+      $imagen = array('src' => "/uploads/todopelisBueno.jpeg", 'height' => '100', 'width' => '1000'); 
     ?><!--by ibañez xD -->
     <?= img($imagen); ?>
   
