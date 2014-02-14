@@ -43,12 +43,9 @@ class Generos extends CI_Controller
       $this->Genero->borrar($id);
       redirect("/admin/generos/index"); 
     }
-<<<<<<< HEAD
-   
-=======
+
     redirect("/admin/generos/index"); 
   
->>>>>>> 6c04d227fa425d7afb0c12b098a44925a744bd39
   }
   
   function modificar($id)
