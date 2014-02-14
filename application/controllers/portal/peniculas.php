@@ -6,10 +6,15 @@
 class Peniculas extends CI_Controller 
 {
   
-  var $FPP = 2;
   
   function index()
   {
+
+    if ($this->session->flashdata('info')){
+      $data['info'] = $this->session->flashdata('info');
+    }else{
+      $data['info']='';
+    }
     $data['peniculas'] = $this->Penicula->cartelera();
     $res = $this->load->view("portada/cartelera", $data, TRUE);
     
@@ -20,6 +25,7 @@ class Peniculas extends CI_Controller
     $res .= $this->load->view("portada/estrenos_dvd", $data, TRUE);
         
     $this->load->view('comunes/plantilla', array('contents' => $res));
+
   }
   
   function estrenos_cine()
@@ -69,31 +75,6 @@ class Peniculas extends CI_Controller
     }
   }
   
-  function comentarios($id_penicula = null, $pag = 1)
-  {
-    try
-    {
-      if ($id_penicula == null) throw new Exception("Película incorrecta");
-
-      $nfilas = $this->Penicula->numero_comentarios($id_penicula);
-      $npags = ceil($nfilas / $this->FPP);
-     // if ($pag > $npags) redirect("portal/peniculas/comentarios/{$id_penicula}");
-
-      $data['comentarios'] = $this->Penicula->comentarios($id_penicula, 
-                                                          $this->FPP, 
-                                                          ($pag - 1) * $this->FPP);
-      $data['penicula'] = $id_penicula;
-      $data['pag'] = $pag;
-      $data['npags'] = $npags;
-      
-      $this->load->view('peniculas/comentarios', $data);
-    }
-    catch (Exception $e)
-    {
-      $data['mensaje'] = $e->getMessage();
-      
-      $this->load->view('comunes/error', $data);
-    }
-  }
+  
   
 }
