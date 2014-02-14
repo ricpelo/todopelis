@@ -1,6 +1,7 @@
 <h2>Modificar generos</h2>
 
-<?= form_open("admin/generos/modificar"); ?>
+<?= validation_errors();?>
+<?= form_open("admin/generos/modificar/$id"); ?>
   <?= form_label("Nombre", "nombre"); ?>
   <?= form_input("nombre", $genero['nombre']); ?>
   <?= form_submit("modificar", "Modificar") ?>

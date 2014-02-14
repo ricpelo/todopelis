@@ -52,6 +52,14 @@ class Genero extends CI_Model
                              set nombre = ?
                              where id = ?", array($nombre, $id));
   }
+  
+  function existe($nombre)
+  {
+    $res = $this->db->query("select * from generos 
+                            where nombre = ?", array($nombre));
+    
+    return $res_>num_rows() > 0;
+  }
 }
 
 
