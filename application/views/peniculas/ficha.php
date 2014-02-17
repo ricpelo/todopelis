@@ -84,5 +84,10 @@
     ?>
     <?= img($imagen); ?>
   </section>
+  <section id="comentar">
+    <p>Opina sobre la penicula:</p>
+    <h4><?= $mensaje ?></h4>
+    <?= mostrar_comentario($datos['id']) ?>
+  </section>
 </section>
 <?php ob_end_flush(); ?>

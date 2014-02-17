@@ -6,8 +6,13 @@
 	<div style="border: 1px solid black; margin-top: 10px;">
 	  <h3><?= $comentario['usuario'] ?></h3>
 	  <p><?= $comentario['critica'] ?></p>
-	</div>
+	
+	  <?= eliminar_comentario($usuario, $comentario['id_usuarios'], 
+	                         $comentario['id'], $penicula['id_penicula']) ?>
+	</div>                         
 <?php endforeach ?>
+
+
 
 <br />
 
