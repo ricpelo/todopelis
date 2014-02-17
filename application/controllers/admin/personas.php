@@ -131,7 +131,7 @@ class Personas extends CI_Controller
       $nombre = $this->input->post('nombre');
       $ano = $this->input->post('ano');
       $this->Persona->editar($id, $nombre, $ano);     
-      redirect('admin/personas/index');
+      //redirect('admin/personas/index');
     }
   }
 }

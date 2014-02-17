@@ -41,6 +41,8 @@ class Usuarios extends CI_Controller
       ),
     );
     
+
+
     $this->form_validation->set_rules($reglas);
     
     if ($this->form_validation->run() == FALSE)
@@ -55,8 +57,10 @@ class Usuarios extends CI_Controller
       if ($this->Usuario->admin($id)){
         redirect('/admin/usuarios/index');
       }
-        else{
-      redirect('/portal');}
+      else
+      {
+      redirect('/portal');
+      }
     }
   }
   
@@ -104,6 +108,15 @@ class Usuarios extends CI_Controller
     $data['columna'] = $columna;
     $data['criterio'] = $criterio;
     
+    if ($this->session->flashdata('info'))
+    {
+      $data['info'] = $this->session->flashdata('info');
+    }
+    else
+    {
+      $data['info'] = '';
+    }
+
     $this->template->load('comunes/plantilla', '/usuarios/index', $data);
   }
 
@@ -123,7 +136,8 @@ class Usuarios extends CI_Controller
  
   function alta()
   {
-    if (!$this->Usuario->logueado()){
+
+    if (!$this->Usuario->logueado() || $this->Usuario->admin()){
       $reglas = array(
         array(
           'field' => 'nombre',
@@ -151,7 +165,7 @@ class Usuarios extends CI_Controller
       
       if ($this->form_validation->run() == FALSE)
       {
-        $this->template->load('comunes/plantilla', 'admin/usuarios/alta');
+        $this->template->load('comunes/plantilla', 'usuarios/alta');
       }
       else
       {
@@ -159,7 +173,8 @@ class Usuarios extends CI_Controller
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         $this->Usuario->alta($nombre, $password, $email);
-        redirect('portal/usuarios/index');
+        $this->session->set_flashdata('info', 'Creado correctamente, puede loguearse.');
+        redirect('portal');
       }
     }else{
       $this->session->set_flashdata('info', 'Acceso denegado');

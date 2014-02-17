@@ -6,8 +6,13 @@
 	<title>Todopelis</title>
 </head>
 <body>
-	<h1>Todopelis</h1>
-  <?= form_open("/portal/usuarios/logout") ?>
+    <?php
+      $imagen = array('src' => "/uploads/todopelisBueno.jpeg", 'height' => '100', 'width' => '1000'); 
+    ?><!--by ibañez xD -->
+    <?= img($imagen); ?>
+  
+   <?= form_open("/portal/usuarios/logout") ?>
+
     <?php if (get_instance()->Usuario->logueado()): ?>
       <p align="right">Usuario: <?= usuario_logueado() ?>
       <?= form_submit('logout', 'Logout') ?></p>

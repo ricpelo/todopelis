@@ -41,6 +41,15 @@ class Usuarios extends CI_Controller
     $data['opciones'] = $opciones;
     $data['columna'] = $columna;
     $data['criterio'] = $criterio;
+
+    if ($this->session->flashdata('info'))
+    {
+      $data['info'] = $this->session->flashdata('info');
+    }
+    else
+    {
+      $data['info'] = '';
+    }
     
     $this->template->load('comunes/plantilla', '/admin/usuarios/index', $data);
   }
@@ -83,7 +92,7 @@ class Usuarios extends CI_Controller
       $usuario = $this->input->post('usuario');
       $email = $this->input->post('email');
       $password = $this->input->post('password');
-
+      $this->session->set_flashdata('info', 'Usuario editado correctamente');
       $this->Usuario->editar($usuario, $email, $password, $id);
       
       redirect('admin/usuarios/indexGestion');      
@@ -105,7 +114,7 @@ class Usuarios extends CI_Controller
     {
       $this->Usuario->borrar($id);
     }
-    
-    redirect('admin/usuarios/index');
+    $this->session->set_flashdata('info', 'Usuario borrado correctamente');
+    redirect('admin/usuarios/indexGestion');
   }
 }
