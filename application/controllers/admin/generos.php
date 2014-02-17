@@ -64,7 +64,7 @@ class Generos extends CI_Controller
       array(
         'field' => 'nombre',
         'label' => 'Nombre',
-        'rules' => "trim|required|max_length[50]|callback__generos_existe[$nombre]"
+        'rules' => "trim|required|max_length[50]|callback__genero_existe[$nombre]"
       ),
     );
     
