@@ -24,6 +24,7 @@ class Pais extends CI_Model
     $res = $res->row_array();
     return $res['total'];
   }
+  
   function por_nombre($nombre)
   {
     return $this->todos("nombre like '%' || ? || '%'", array($nombre));
@@ -47,4 +48,33 @@ class Pais extends CI_Model
   {
     $this->db->query("delete from paises where id = ?", array($id));
   }
+  
+  function obtener($id)
+  {
+    $res = $this->db->query("select * from paises where id = ?", array($id));
+    
+    return $res->row_array();
+  }
+  
+  function existe_nombre($nombre){
+    $res= $this->db->query("select * from paises where nombre = ?", array($nombre));
+    
+    return ($res->num_rows() == 1) ? TRUE : FALSE;
+  }
+  
+  function editar($id, $nombre)
+  {
+    $this->db->query("update paises
+                           set nombre = ?
+                         where id = ?", array($nombre, $id));
+  }
+  
+  function editar_bandera($id, $bandera)
+  {
+    $this->db->query("update paises
+                         set bandera = ?
+                         where id = ?", array($bandera, $id));
+  }
+  
+  
 }
