@@ -40,7 +40,8 @@ class Generos extends CI_Controller
     {
       $data['info'] = '';
     }
-    $data['nombre'] = $genero; 
+    $this->output->cache(1);
+    $data['nombre'] = $genero;
     $this->template->load('comunes/plantilla', 'generos/ver_generos', $data);
   }
   
@@ -82,6 +83,7 @@ class Generos extends CI_Controller
       $this->Genero->modificar($id, $genero);
       $this->session->set_flashdata('info', 
                                     'El genero se modificó correctamente');
+      $this->output->clear_page_cache('admin/generos/index');
       redirect('admin/generos/index');
     }
   }
