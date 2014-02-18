@@ -58,6 +58,16 @@ class Peniculas extends CI_Controller
     try
     {
       if ($id_penicula == null) throw new Exception("Película incorrecta");
+      
+      if ($this->session->flashdata('mensaje'))
+      {
+        $data['mensaje'] = $this->session->flashdata('mensaje');
+      }
+      else
+      {
+      	$data['mensaje'] = '';
+      }
+      
 
       $data['datos'] = $this->Penicula->obtener_datos($id_penicula);
       $data['directores'] = $this->Penicula->obtener_directores($id_penicula);
@@ -71,7 +81,7 @@ class Peniculas extends CI_Controller
     {
       $data['mensaje'] = $e->getMessage();
       
-      $this->load->view('comunes/error', $data);
+      $this->template->load('comunes/plantilla', 'comunes/error', $data);
     }
   }
   
