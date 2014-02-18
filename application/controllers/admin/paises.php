@@ -107,6 +107,9 @@ class Paises extends CI_Controller
       redirect('/admin/paises/index');
     }
   }
+
+
+
   
   function _pais_unico($valor, $id)
   {
@@ -172,5 +175,25 @@ class Paises extends CI_Controller
       $this->Pais->anadir_bandera($id, $bandera);
       redirect('admin/paises/index');
     }
+  }
+  
+  function borrar($id = null)
+  {
+    if ($id == null) redirect('/admin/paises/index');
+
+    $data['id'] = $id;
+    $this->load->view('/admin/paises/borrar',$data);    
+  }
+
+  function hacer_borrado()
+  {
+    $id = $this->input->post('id');
+    
+    if ($id != FALSE)
+    {
+      $this->Pais->borrar($id);
+    }
+    
+    redirect('admin/paises/index');
   }
 }
