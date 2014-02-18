@@ -1,0 +1,12 @@
+<VirtualHost *:80>
+    ServerName software.daw.com
+    DocumentRoot /var/www/software
+    <Directory />
+        
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/software.error.log
+    # Possible values include: debug, info, notice, warn, error, crit,
+    # alert, emerg.
+    LogLevel warn
+    CustomLog ${APACHE_LOG_DIR}/software.access.log combined
+</VirtualHost>
