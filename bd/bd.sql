@@ -153,6 +153,14 @@ create view comentarios_v as
  select c.*, u.usuario from comentarios c join usuarios u
            on u.id = c.id_usuarios;
 
+drop view participado;
+create view participado as
+  select id_peniculas,id_personas,titulo,ano,car.nombre as cargo
+  from participan par join peniculas pen
+  on par.id_peniculas = pen.id
+  join cargos car
+  on car.id = par.id_cargos
+  order by ano desc;
 /************************************INSERTS*****************************************/
 
 insert into usuarios (usuario, password, email) values ('pepe', md5('pepe'), 'pepe@pepe.com');
@@ -174,11 +182,11 @@ INSERT INTO paises (nombre,bandera) VALUES ('Freinch','uploads/banderas/2.png');
 INSERT INTO paises (nombre,bandera) VALUES ('Jinlang','uploads/banderas/3.png');
 INSERT INTO paises (nombre,bandera) VALUES ('Iuesei','uploads/banderas/4.png');
 
-INSERT INTO personas (nombre) VALUES ('George Lucas');
-INSERT INTO personas (nombre) VALUES ('Liam Neeson');
-INSERT INTO personas (nombre) VALUES ('Ewan McGregor');
-INSERT INTO personas (nombre) VALUES ('Natalie Portman');
-INSERT INTO personas (nombre) VALUES ('Charles Chaplin');
+INSERT INTO personas (nombre,ano) VALUES ('George Lucas',1945);
+INSERT INTO personas (nombre,ano) VALUES ('Liam Neeson',1955);
+INSERT INTO personas (nombre,ano) VALUES ('Ewan McGregor',1970);
+INSERT INTO personas (nombre,ano) VALUES ('Natalie Portman',1980);
+INSERT INTO personas (nombre,ano) VALUES ('Charles Chaplin',1900);
 
 INSERT INTO peniculas (titulo, ano, duracion, cartel, estreno, alta, sinopsis)
   VALUES('Tiempos modernos',1936, 89,'uploads/carteles/modernos.jpg',current_date-70,current_date,

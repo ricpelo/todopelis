@@ -14,9 +14,6 @@
   <?= form_label('Sinopsis: ', 'sinopsis') ?>
   <?= form_input('sinopsis', set_value('sinopsis',$fila['sinopsis'])) ?><br/>
 
-  <?= form_label('Cartel ', 'cartel') ?>
-  <?= form_input('cartel', set_value('cartel',$fila['cartel'])) ?><br/>
-
   <?= form_label('Estreno (DD-MM-YYYY): ', 'estreno') ?>
   <?= form_input('estreno', set_value('estreno',$fila['estreno_format'])) ?><br/>
 

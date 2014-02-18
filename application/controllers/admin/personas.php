@@ -49,9 +49,7 @@ class Personas extends CI_Controller
     $data['pag'] = $pag;
     $data['npags'] = $npags;
     $data['vista'] = 'personas';
-
-    $this->load->view('admin/personas/index', $data);  
-
+    $this->template->load('comunes/plantilla', 'admin/personas/index', $data);
   }
   
   function alta()
@@ -133,7 +131,7 @@ class Personas extends CI_Controller
       $nombre = $this->input->post('nombre');
       $ano = $this->input->post('ano');
       $this->Persona->editar($id, $nombre, $ano);     
-      redirect('admin/personas/index');
+      //redirect('admin/personas/index');
     }
   }
 }

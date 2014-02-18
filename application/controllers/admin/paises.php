@@ -47,8 +47,7 @@ class Paises extends CI_Controller
     $data['pag'] = $pag;
     $data['npags'] = $npags;
     $data['vista'] = 'paises';
-    $this->load->view('admin/paises/index', $data);  
-
+    $this->template->load('comunes/plantilla', 'admin/paises/index', $data);
   }
 
   function editar($id)

@@ -1,4 +1,5 @@
 <h2>Lista de usuarios</h2>
+<?= $info ?>
 
 <?= form_open("/admin/usuarios/index") ?>
   <?= form_label('Columna:', 'columna') ?>

@@ -43,10 +43,10 @@ class Penicula extends CI_Model
 
   function alta($data)
   {
-    $res = $this->db->query("insert into peniculas (titulo, ano, duracion,sinopsis,cartel,estreno,dvd)
-                             values ( ?, ?, ?, ?, ?, ?, ?)",
+    $res = $this->db->query("insert into peniculas (titulo, ano, duracion,sinopsis,estreno,dvd)
+                             values ( ?, ?, ?, ?, ?, ?)",
                              array($data['titulo'], $data['ano'],$data['duracion'],$data['sinopsis'],
-                              $data['cartel'],$data['estreno'],$data['dvd']));
+                              $data['estreno'],$data['dvd']));
   }
   
   function editar($data)
@@ -55,11 +55,17 @@ class Penicula extends CI_Model
                                                   ano = ?,
                                                   duracion = ?,
                                                   sinopsis = ?,
-                                                  cartel = ?,
                                                   estreno = ?,
                                                   dvd = ? where id = ?",
                               array($data['titulo'], $data['ano'],$data['duracion'],$data['sinopsis'],
-                              $data['cartel'],$data['estreno'],$data['dvd'], $data['id']));
+                              $data['estreno'],$data['dvd'], $data['id']));
+  }
+
+  function cartel($data)
+  {
+    $res = $this->db->query("update peniculas set cartel = ?
+                                                  where id = ?",
+                                                  array('uploads/carteles/'.$data['url'],$data['id']));
   }
 
   
@@ -106,25 +112,6 @@ class Penicula extends CI_Model
     return $res->result_array();
   }
   
-  function comentarios($id_penicula, $fpp, $comienzo = 0)
-  {
-    $res = $this->db->query("select * from comentarios_v 
-                             where id_peniculas = ?
-                             order by id
-                             limit $fpp
-                             offset $comienzo", array($id_penicula));
-    
-    return $res->result_array();
-  }
-
-  
-  function numero_comentarios($id_penicula)
-  {
-    $res = $this->db->query("select count(*) from comentarios_v
-                                    where id_peniculas = ?", array($id_penicula));
-  }
-  
-
   function borrar($id_penicula)
   {
     $this->db->query("delete from peniculas where id = ?", array($id_penicula));
