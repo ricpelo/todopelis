@@ -22,5 +22,7 @@
     <?php endforeach ?>
   </tbody>
 </table>
+<div style="text-align: center">
 
+</div>
 <p align="center"><?= anchor("admin/generos/alta", 'Insertar un nuevo Genero') ?></p>

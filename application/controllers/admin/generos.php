@@ -2,6 +2,8 @@
 
 class Generos extends CI_Controller
 {
+  var $FPP = 10;
+  
   function __construct()
   {
     parent::__construct();
@@ -20,7 +22,7 @@ class Generos extends CI_Controller
     }
   
   }
-  function index()
+  function index($pag = 1)
   {
     $genero = trim($this->input->post('nombre'));
 
@@ -40,7 +42,6 @@ class Generos extends CI_Controller
     {
       $data['info'] = '';
     }
-    $this->output->cache(1);
     $data['nombre'] = $genero;
     $this->template->load('comunes/plantilla', 'generos/ver_generos', $data);
   }
