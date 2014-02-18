@@ -30,18 +30,18 @@ class Pais extends CI_Model
     return $this->todos("nombre like '%' || ? || '%'", array($nombre));
   }
 
-  function alta($nombre, $bandera)
+  function alta($nombre)
   {
-    if ($bandera == "") {
-      $this->db->query("insert into paises (nombre)
-                               values (?)",
-                               array($nombre));  
-    }
-    else{
-      $this->db->query("insert into paises (nombre, bandera)
-                               values (?, ?)",
-                               array($nombre, $bandera));
-    }
+    $res = $this->db->query("insert into paises (nombre)
+                               values (?) returning id",
+                               array($nombre)); 
+  }
+
+  function anadir_bandera($id,$bandera)
+  {
+    $this->db->query("update paises
+                         set bandera = ?
+                       where id = ?", array($bandera,$id));
   }
 
   function borrar($id)
@@ -75,6 +75,13 @@ class Pais extends CI_Model
                          set bandera = ?
                          where id = ?", array($bandera, $id));
   }
-  
-  
+
+  function obtener_id($nombre)
+  {
+    $ret = $this->db->query("select id 
+                               from paises
+                              where nombre = ?", array($nombre));
+    $ret = $ret->row_array();
+    return $ret['id'];
+  }
 }
