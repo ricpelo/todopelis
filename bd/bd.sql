@@ -83,7 +83,7 @@ drop table paises_peniculas cascade;
 create table paises_peniculas (
   id_paises      bigint constraint fk_paises_peniculas_paises
                       references paises (id) on update cascade
-                      on delete no action,
+                      on delete cascade,
   id_peniculas bigint constraint fk_paises_peniculas_peniculas
                       references peniculas (id) on update cascade
                       on delete cascade,
