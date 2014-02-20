@@ -11,10 +11,17 @@ class Genero extends CI_Model
     return $res->result_array();
   }
   
-  function todos()
+  function todos($where = "true", $valores = array(), $limit = "", $offset = 0)
   {
-    $res = $this->db->query("select * from generos");
-    
+
+    if($limit == "") $limit = "offset $offset";
+    else             $limit = "limit $limit offset $offset";
+
+    $res = $this->db->query("select * 
+                               from generos 
+                              where $where
+                              order by id
+                              $limit", $valores);
     return $res->result_array();
   }
   
@@ -65,6 +72,15 @@ class Genero extends CI_Model
     $res = $this->db->query("insert into generos (nombre)
                              values(?)",array($nombre));
 
+  }
+  
+  function num_filas($where = "true", $valores = array())
+  {
+    $res = $this->db->query("select count(*) as total
+                               from generos
+                               where $where", $valores);
+    $res = $res->row_array();
+    return $res['total'];
   }
 }
 

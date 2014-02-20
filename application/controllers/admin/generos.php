@@ -24,25 +24,45 @@ class Generos extends CI_Controller
   }
   function index($pag = 1)
   {
-    $genero = trim($this->input->post('nombre'));
+    $criterio = trim($this->input->post('nombre'));
 
-    if ($genero == '')
+    if ($criterio == '')
     {
-      $data['generos'] = $this->Genero->todos();  
+      $nfilas = $this->Genero->num_filas();
+      $npags = ceil($nfilas/$this->FPP); 
+      if ($pag > $npags)
+      {
+        redirect("/admin/generos/index/1");
+      } 
+      $genero = $this->Genero->todos("true",array(),$this->FPP,($pag - 1) * $this->FPP);  
     }
     else
     {
-      $data['generos'] = $this->Genero->buscar($genero);
+      $where = "nombre like '%' || ? || '%'";
+      $nfilas = $this->Genero->num_filas($where, array($criterio));
+      $npags = ceil($nfilas/$this->FPP); 
+      if ($pag > $npags)
+      {
+        redirect("/admin/generos/index/1");
+      } 
+      $genero = $this->Genero->todos($where, array($criterio), $this->FPP, ($pag - 1) * $this->FPP);
     }
     if ($this->session->flashdata('info'))
     {
-      $data['info'] = $this->session->flashdata('info');
+      $info = $this->session->flashdata('info');
     }
     else
     {
-      $data['info'] = '';
+      $info = '';
     }
-    $data['nombre'] = $genero;
+    
+    $data['pag'] = $pag;
+    $data['info'] = $info;
+    $data['nfilas'] = $nfilas;
+    $data['npags'] = $npags;
+    $data['generos'] = $genero;
+    $data['nombre'] = $criterio;
+    $data['vista'] = 'generos';
     $this->template->load('comunes/plantilla', 'generos/ver_generos', $data);
   }
   

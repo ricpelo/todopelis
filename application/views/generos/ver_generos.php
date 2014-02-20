@@ -23,6 +23,6 @@
   </tbody>
 </table>
 <div style="text-align: center">
-
+  <?= paginado($pag, $npags, $vista)?>
 </div>
 <p align="center"><?= anchor("admin/generos/alta", 'Insertar un nuevo Genero') ?></p>
