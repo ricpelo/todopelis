@@ -39,9 +39,7 @@ class Peniculas extends CI_Controller
     $titulo = trim($this->input->post('busqueda'));
 
     $busq = $this->Penicula->buscar($titulo)[0]['id'];
-
-    echo "<script>alert($busq);</script>";
-    //Asegurarse de que el array tiene cosicas
+    
     $data['busqueda'] = $busq;
 
     $this->ficha($data['busqueda']);
