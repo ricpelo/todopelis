@@ -33,10 +33,12 @@ class Penicula extends CI_Model
 
   function buscar($nombre)
   {
-    $res = $this->db->query("select * ,to_char(alta, 'DD-MM-YYYY') as alta_format
+    $res = $this->db->query("select id
                              from peniculas
                              where titulo like '%' || ? || '%'
                              order by alta desc",array($nombre));
+
+    //echo "<script>alert(".$res->result_array()['id'].");</script>";
 
     return $res->result_array();
   }

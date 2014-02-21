@@ -24,6 +24,17 @@
     <?php endif ?>   
   <?= form_close() ?>
   <hr/>
+  <div>
+    <h3>Buscador</h3>
+
+      <?= form_open("/portal/peniculas/buscar") ?>
+        <p>Buscar:
+        <?=  form_input('busqueda', ''); ?>
+        <?= form_submit('buscar', 'Buscar') ?></p>   
+      <?= form_close() ?>
+  </div>
+
+  <hr/>
   <?= $contents ?>
   <hr />
   <?= anchor("/portal", 'Inicio'); ?> 

@@ -15,6 +15,7 @@ class Peniculas extends CI_Controller
     }else{
       $data['info']='';
     }
+
     $data['peniculas'] = $this->Penicula->cartelera();
     $res = $this->load->view("portada/cartelera", $data, TRUE);
     
@@ -28,29 +29,23 @@ class Peniculas extends CI_Controller
 
   }
   
-  function estrenos_cine()
-  {
-    $data['peniculas'] = $this->Penicula->estrenos_cine();
-    $this->load->view("portada/estrenos_cine", $data);
-  }
-  
-  function cartelera()
-  {
-    $data['peniculas'] = $this->Penicula->cartelera();
-    $this->load->view("portada/cartelera", $data);
-  }
-  
-  function estrenos_dvd()
-  {
-    $data['dvds'] = $this->Penicula->estrenos_dvd();
-    return $this->load->view("portada/estrenos_dvd", $data, TRUE);
-  }
-  
-  
   function ficha_de($id_penicula = null)
   {
     $data['peniculas'] = $this->Penicula->estrenos_dvd();
-    $this->load->view("portada/estrenos_dvd", $data);
+    $res = $this->load->view("portada/estrenos_dvd", $data);
+  }
+
+  function buscar(){
+    $titulo = trim($this->input->post('busqueda'));
+
+    $busq = $this->Penicula->buscar($titulo)[0]['id'];
+
+    echo "<script>alert($busq);</script>";
+    //Asegurarse de que el array tiene cosicas
+    $data['busqueda'] = $busq;
+
+    $this->ficha($data['busqueda']);
+
   }
   
   function ficha($id_penicula = null)
