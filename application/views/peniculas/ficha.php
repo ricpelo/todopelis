@@ -39,7 +39,7 @@
       <div class="dato_fila">
         <?php foreach ($directores as $director): ?>
           <span class="nombre_director">
-            <?= anchor("/portal/personas/ficha/{$director['id_personas']}", $director['nombre']) ?>
+            <?= anchor("/portal/personas/{$director['id_personas']}", $director['nombre']) ?>
           </span>
         <?php endforeach; ?>
       </div>
@@ -50,7 +50,7 @@
       <div class="dato_fila">
         <?php foreach ($reparto as $actor): ?>
           <span class="nombre_actor">
-            <?= anchor("/portal/personas/ficha/{$actor['id_personas']}", $actor['nombre']) ?>
+            <?= anchor("/portal/personas/{$actor['id_personas']}", $actor['nombre']) ?>
           </span>
         <?php endforeach; ?>
       </div>
@@ -83,6 +83,11 @@
       $imagen = array('src' => "{$datos['cartel']}", 'height' => '250', 'width' => '200'); 
     ?>
     <?= img($imagen); ?>
+  </section>
+  <section id="comentar">
+    <p>Opina sobre la penicula:</p>
+    <h4><?= $mensaje ?></h4>
+    <?= mostrar_comentario($datos['id']) ?>
   </section>
 </section>
 <?php ob_end_flush(); ?>

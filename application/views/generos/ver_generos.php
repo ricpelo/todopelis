@@ -1,5 +1,5 @@
 <h2>Lista de Generos</h2>
-
+<?= $info ?>
 <?= form_open("/admin/generos/index") ?>
   <p align="center"><?= form_label('Busqueda:', 'nombre') ?>
   
@@ -22,5 +22,7 @@
     <?php endforeach ?>
   </tbody>
 </table>
-
+<div style="text-align: center">
+  <?= paginado($pag, $npags, $vista)?>
+</div>
 <p align="center"><?= anchor("admin/generos/alta", 'Insertar un nuevo Genero') ?></p>
